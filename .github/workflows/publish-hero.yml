@@ -39,3 +39,4 @@ jobs:
           git add index.html hero-photo.webp hero-img-1.txt hero-img-2.txt hero-img-3.txt hero-img-4.txt hero-img-5.txt hero-img-6.txt
           git commit -m "Publish new hero portrait"
           git push
+# retry after corrected image data
