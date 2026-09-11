@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/photo.jpg",
+      "destination": "/portrait-work.svg"
+    }
+  ]
+}
