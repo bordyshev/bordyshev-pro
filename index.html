@@ -1,676 +1,106 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Никита Бордышев — Предприниматель, строю продукты с ИИ</title>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --red:#9B1C1C;
-  --red-h:#7A1414;
-  --black:#0f0f0f;
-  --white:#ffffff;
-  --gray:#f5f5f5;
-  --gray2:#e2e2e2;
-  --muted:#666;
-  --fh:'Oswald',sans-serif;
-  --fb:'Inter',sans-serif;
-}
-html{scroll-behavior:smooth;}
-body{background:var(--white);color:var(--black);font-family:var(--fb);font-weight:400;line-height:1.65;overflow-x:hidden;}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--white);border-bottom:2px solid var(--black);display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:64px;}
-.nav-logo{font-family:var(--fh);font-size:1.4rem;font-weight:700;letter-spacing:.1em;color:var(--black);text-decoration:none;text-transform:uppercase;}
-.nav-logo span{color:var(--red);}
-.nav-links{display:flex;gap:2rem;list-style:none;}
-.nav-links a{font-family:var(--fh);font-size:.88rem;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--black);text-decoration:none;transition:color .2s;}
-.nav-links a:hover{color:var(--red);}
-.nav-cta{display:inline-block;padding:.5rem 1.4rem;background:var(--red);color:var(--white);font-family:var(--fh);font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;text-decoration:none;transition:background .2s;}
-.nav-cta:hover{background:var(--red-h);}
-.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
-.burger span{display:block;width:26px;height:2px;background:var(--black);}
-
-/* HERO */
-#hero{min-height:100vh;padding-top:64px;background:var(--black);color:var(--white);display:grid;grid-template-columns:1fr 1fr;align-items:center;position:relative;overflow:hidden;}
-#math-canvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;}
-.hero-left{padding:5rem 3rem 5rem 4rem;position:relative;z-index:2;}
-.hero-tag{display:inline-block;background:var(--red);color:var(--white);font-family:var(--fh);font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:.32rem .9rem;margin-bottom:1.75rem;}
-.hero-name{font-family:var(--fh);font-size:clamp(3rem,7vw,6rem);font-weight:700;line-height:1.0;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:.4rem;}
-.hero-name span{color:var(--red);}
-.hero-sub{font-family:var(--fh);font-size:clamp(.95rem,2vw,1.4rem);font-weight:400;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2rem;}
-.hero-desc{font-size:.93rem;color:rgba(255,255,255,.65);max-width:420px;line-height:1.8;margin-bottom:2.75rem;}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
-.btn-red{display:inline-block;padding:.8rem 2rem;background:var(--red);color:var(--white);font-family:var(--fh);font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;text-decoration:none;transition:background .2s,transform .15s;}
-.btn-red:hover{background:var(--red-h);transform:translateY(-2px);}
-.btn-outline{display:inline-block;padding:.8rem 2rem;border:2px solid rgba(255,255,255,.25);color:var(--white);font-family:var(--fh);font-size:.82rem;font-weight:500;text-transform:uppercase;letter-spacing:.12em;text-decoration:none;transition:border-color .2s,transform .15s;}
-.btn-outline:hover{border-color:var(--red);transform:translateY(-2px);}
-.hero-right{position:relative;z-index:2;height:100%;min-height:100vh;overflow:hidden;}
-.hero-right img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
-.hero-right::after{content:'';position:absolute;left:0;top:0;bottom:0;width:100px;background:linear-gradient(to right,var(--black),transparent);pointer-events:none;}
-
-/* SECTION HEADER */
-.sec-head{text-align:center;margin-bottom:3.5rem;}
-.sec-head h2{font-family:var(--fh);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:inline-block;padding-bottom:.5rem;position:relative;}
-.sec-head h2::after{content:'';display:block;width:56px;height:3px;background:var(--red);margin:.5rem auto 0;}
-
-/* FACTS */
-#facts{padding:5rem 3rem;background:var(--gray);}
-.facts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;max-width:1100px;margin:0 auto;}
-.fact-card{background:var(--white);border-top:3px solid var(--red);padding:1.75rem 1.5rem;transition:transform .2s,box-shadow .2s;}
-.fact-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08);}
-.fact-num{font-family:var(--fh);font-size:3rem;font-weight:700;color:var(--red);line-height:1;margin-bottom:.35rem;}
-.fact-label{font-family:var(--fh);font-size:.78rem;font-weight:500;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);}
-
-/* ABOUT */
-#about{padding:5rem 3rem;background:var(--white);}
-.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1100px;margin:0 auto;}
-.about-text p{font-size:.98rem;line-height:1.9;color:#333;margin-bottom:1.2rem;}
-.about-text p:first-child{font-size:1.1rem;font-weight:500;color:var(--black);}
-.about-items{display:flex;flex-direction:column;gap:1.1rem;}
-.about-item{display:flex;gap:1rem;align-items:flex-start;padding:1.2rem 1.4rem;border-left:3px solid var(--red);background:var(--gray);}
-.ai-icon{font-size:1.35rem;flex-shrink:0;margin-top:.1rem;}
-.ai-text strong{display:block;font-family:var(--fh);font-size:.88rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem;}
-.ai-text span{font-size:.85rem;color:var(--muted);}
-
-/* BANNER */
-.banner{background:var(--black);color:var(--white);padding:2.75rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;}
-.banner-text{font-family:var(--fh);font-size:clamp(1rem,2.2vw,1.5rem);font-weight:600;text-transform:uppercase;letter-spacing:.04em;max-width:620px;}
-.banner-text span{color:var(--red);}
-
-/* SERVICES */
-#services{padding:5rem 3rem;background:var(--gray);}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:1100px;margin:0 auto;}
-.svc-card{background:var(--white);padding:2rem 1.75rem;border-bottom:3px solid transparent;transition:border-color .25s,transform .2s,box-shadow .2s;}
-.svc-card:hover{border-bottom-color:var(--red);transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.08);}
-.svc-icon{font-size:2rem;margin-bottom:1rem;display:block;}
-.svc-title{font-family:var(--fh);font-size:1.1rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.65rem;}
-.svc-desc{font-size:.865rem;color:var(--muted);line-height:1.7;}
-.svc-link{display:inline-block;margin-top:1.15rem;font-family:var(--fh);font-size:.76rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--red);text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:2px;}
-.svc-link:hover{color:var(--red-h);}
-
-/* PROJECTS */
-#projects{padding:5rem 3rem;background:var(--white);}
-.proj-main{max-width:1100px;margin:0 auto;}
-.proj-item{display:grid;grid-template-columns:1fr 1.1fr;border:1px solid var(--gray2);margin-bottom:2rem;transition:box-shadow .2s;}
-.proj-item:hover{box-shadow:0 8px 32px rgba(0,0,0,.08);}
-.proj-imgs{overflow:hidden;min-height:300px;background:var(--black);}
-.proj-imgs-dual{display:grid;grid-template-columns:1fr 1fr;height:100%;}
-.proj-imgs-dual img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .4s;}
-.proj-item:hover .proj-imgs-dual img{transform:scale(1.04);}
-.proj-body{padding:2.5rem;display:flex;flex-direction:column;justify-content:center;}
-.proj-tags{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.1rem;}
-.p-tag{font-family:var(--fh);font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;background:var(--black);color:var(--white);padding:.22rem .65rem;}
-.p-tag.red{background:var(--red);}
-.proj-title{font-family:var(--fh);font-size:1.55rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1.15;margin-bottom:.9rem;}
-.proj-desc{font-size:.88rem;color:#444;line-height:1.8;margin-bottom:1.5rem;}
-.proj-link{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--fh);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--red);text-decoration:none;transition:gap .2s;}
-.proj-link::after{content:'→';}
-.proj-link:hover{gap:.8rem;}
-
-.proj-grid2{max-width:1100px;margin:1.75rem auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
-.proj-sm{border:1px solid var(--gray2);padding:1.75rem;transition:box-shadow .2s,transform .2s;}
-.proj-sm:hover{box-shadow:0 8px 24px rgba(0,0,0,.07);transform:translateY(-3px);}
-
-
-/* CLIENT PROJECTS */
-.client-projects{max-width:1100px;margin:2rem auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.35rem;}
-.client-proj{border:1px solid var(--gray2);background:var(--white);display:flex;flex-direction:column;min-width:0;transition:transform .2s,box-shadow .2s,border-color .2s;overflow:hidden;}
-.client-proj:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.08);border-color:#ccc;}
-.client-shot{height:220px;background:var(--gray);overflow:hidden;position:relative;border-bottom:1px solid var(--gray2);}
-.client-shot img{width:100%;height:100%;display:block;object-fit:cover;object-position:top;transition:transform .35s;}
-.client-proj:hover .client-shot img{transform:scale(1.025);}
-.client-domain{position:absolute;left:14px;bottom:12px;background:rgba(15,15,15,.88);color:#fff;padding:.34rem .7rem;font-family:var(--fh);font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(4px);}
-.client-body{padding:1.55rem 1.6rem 1.65rem;display:flex;flex-direction:column;flex:1;}
-.client-title{font-family:var(--fh);font-size:1.22rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1.2;margin:.15rem 0 .75rem;}
-.client-desc{font-size:.865rem;color:#4b4b4b;line-height:1.75;margin-bottom:1.15rem;}
-.client-body .proj-link{margin-top:auto;align-self:flex-start;}
-.projects-note{max-width:1100px;margin:1.2rem auto 0;font-size:.8rem;color:var(--muted);line-height:1.6;}
-@media(max-width:768px){.client-projects{grid-template-columns:1fr;}.client-shot{height:200px;}}
-
-/* BLOG */
-#blog{padding:5rem 3rem;background:var(--gray);}
-.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;max-width:1100px;margin:0 auto 2.5rem;}
-.blog-card{background:var(--white);text-decoration:none;color:var(--black);border-bottom:3px solid transparent;display:flex;flex-direction:column;transition:border-color .25s,transform .2s,box-shadow .2s;}
-.blog-card:hover{border-bottom-color:var(--red);transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.08);}
-.blog-icon-wrap{height:88px;display:flex;align-items:center;justify-content:center;}
-.blog-icon-box{width:58px;height:58px;border-radius:14px;display:flex;align-items:center;justify-content:center;}
-.blog-body{padding:1.4rem 1.6rem 1.75rem;}
-.blog-platform{font-family:var(--fh);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--red);margin-bottom:.35rem;}
-.blog-name{font-family:var(--fh);font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.55rem;}
-.blog-desc{font-size:.84rem;color:var(--muted);line-height:1.6;}
-.blog-more{text-align:center;}
-.btn-black{display:inline-block;padding:.8rem 2.4rem;background:var(--black);color:var(--white);font-family:var(--fh);font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;text-decoration:none;transition:background .2s;}
-.btn-black:hover{background:#333;}
-
-/* CONTACT */
-#contact{padding:5rem 3rem;background:var(--white);}
-.contact-inner{max-width:780px;margin:0 auto;text-align:center;}
-.contact-lead{font-size:1rem;color:#444;line-height:1.8;max-width:560px;margin:0 auto 2.75rem;}
-.contact-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-bottom:2.75rem;}
-.c-card{display:flex;flex-direction:column;align-items:center;gap:.7rem;padding:1.6rem 1rem;border:1px solid var(--gray2);text-decoration:none;color:var(--black);transition:border-color .2s,transform .2s;}
-.c-card:hover{border-color:var(--red);transform:translateY(-3px);}
-.c-icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
-.c-label{font-family:var(--fh);font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
-.c-val{font-size:.88rem;font-weight:500;word-break:break-all;}
-
-/* FOOTER */
-footer{background:var(--black);color:rgba(255,255,255,.45);padding:1.75rem 3rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;}
-footer span{font-size:.78rem;}
-.foot-links{display:flex;gap:1.5rem;}
-.foot-links a{font-family:var(--fh);font-size:.76rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;}
-.foot-links a:hover{color:var(--red);}
-
-/* FADE */
-.fi{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease;}
-.fi.vis{opacity:1;transform:none;}
-
-/* BADGE */
-.badge-wip{display:inline-block;background:#f59e0b;color:#fff;font-family:var(--fh);font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.18rem .55rem;vertical-align:middle;margin-left:.5rem;position:relative;top:-2px;}
-
-/* CHAT WIDGET */
-#chat-widget{position:fixed;bottom:1.75rem;right:1.75rem;z-index:1000;}
-#chat-bubble{width:56px;height:56px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(155,28,28,.4);transition:transform .2s,box-shadow .2s;}
-#chat-bubble:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(155,28,28,.5);}
-#chat-bubble svg{transition:opacity .2s,transform .2s;}
-#chat-box{
-  position:absolute;bottom:70px;right:0;width:300px;
-  background:var(--white);border:1px solid var(--gray2);
-  box-shadow:0 8px 40px rgba(0,0,0,.15);
-  overflow:hidden;
-  opacity:0;transform:translateY(12px) scale(.97);
-  pointer-events:none;
-  transition:opacity .25s,transform .25s;
-}
-#chat-box.open{opacity:1;transform:none;pointer-events:auto;}
-.chat-head{background:var(--black);padding:1rem 1.25rem;display:flex;align-items:center;gap:.85rem;}
-.chat-avatar{width:38px;height:38px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:1rem;font-weight:700;color:#fff;flex-shrink:0;}
-.chat-head-info{}
-.chat-head-name{font-family:var(--fh);font-size:.9rem;font-weight:600;text-transform:uppercase;color:#fff;letter-spacing:.05em;}
-.chat-head-status{font-size:.75rem;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:.35rem;}
-.chat-head-status::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:#22c55e;}
-.chat-body{padding:1.1rem 1.25rem;background:var(--gray);}
-.chat-msg{background:var(--white);border:1px solid var(--gray2);padding:.75rem 1rem;font-size:.855rem;line-height:1.6;color:#333;margin-bottom:.85rem;position:relative;}
-.chat-msg::before{content:'';position:absolute;left:-7px;top:10px;border:6px solid transparent;border-right-color:var(--gray2);}
-.chat-msg::after{content:'';position:absolute;left:-5px;top:11px;border:5px solid transparent;border-right-color:var(--white);}
-.chat-input-row{display:flex;gap:.5rem;margin-top:.35rem;}
-.chat-inp{flex:1;border:1px solid var(--gray2);padding:.55rem .8rem;font-family:var(--fb);font-size:.82rem;outline:none;background:var(--white);}
-.chat-inp:focus{border-color:var(--red);}
-.chat-send{background:var(--red);color:#fff;border:none;padding:.55rem .9rem;cursor:pointer;font-family:var(--fh);font-size:.8rem;font-weight:600;text-transform:uppercase;transition:background .2s;}
-.chat-send:hover{background:var(--red-h);}
-.chat-note{font-size:.72rem;color:var(--muted);margin-top:.7rem;text-align:center;line-height:1.5;}
-.chat-note a{color:var(--red);text-decoration:none;}
-
-#mob-nav{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;background:var(--black);z-index:199;padding:2rem;}
-#mob-nav.open{display:block;}
-#mob-nav ul{list-style:none;display:flex;flex-direction:column;gap:1.5rem;}
-#mob-nav a{font-family:var(--fh);font-size:1.35rem;font-weight:600;text-transform:uppercase;color:var(--white);text-decoration:none;transition:color .2s;}
-#mob-nav a:hover{color:var(--red);}
-
-/* RESPONSIVE */
-@media(max-width:1024px){
-  .facts-grid{grid-template-columns:1fr 1fr;}
-  .services-grid{grid-template-columns:1fr 1fr;}
-  .blog-grid{grid-template-columns:1fr 1fr;}
-  nav,footer{padding-left:2rem;padding-right:2rem;}
-  #facts,#about,#services,#projects,#blog,#contact{padding:4rem 2rem;}
-  .banner{padding:2.5rem 2rem;}
-}
-@media(max-width:768px){
-  .proj-grid2 .proj-sm[style*="display:grid"]{grid-template-columns:1fr !important;}
-  nav{padding:0 1.25rem;}
-  .nav-links,.nav-cta{display:none;}
-  .burger{display:flex;}
-  #hero{grid-template-columns:1fr;}
-  .hero-right{min-height:55vw;max-height:340px;}
-  .hero-right::after{display:none;}
-  .hero-left{padding:3rem 1.5rem 2.5rem;}
-  .about-inner{grid-template-columns:1fr;gap:2.5rem;}
-  .services-grid{grid-template-columns:1fr;}
-  .proj-item{grid-template-columns:1fr;}
-  .proj-imgs{min-height:200px;}
-  .proj-grid2{grid-template-columns:1fr;}
-  .blog-grid{grid-template-columns:1fr;}
-  .contact-cards{grid-template-columns:1fr;}
-  .banner{flex-direction:column;text-align:center;}
-  footer{flex-direction:column;text-align:center;padding:1.5rem;}
-  #facts,#about,#services,#projects,#blog,#contact{padding:3rem 1.25rem;}
-}
-@media(max-width:480px){
-  .facts-grid{grid-template-columns:1fr;}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сайты, SEO, CRM и AI-автоматизация для бизнеса — Никита Бордышев</title>
+  <meta name="description" content="Помогаю бизнесу получать и не терять заявки: сайты, SEO, CRM, квизы, чат-боты и AI-автоматизация. Сначала разбираю текущий сайт и предлагаю 2–3 конкретные точки роста.">
+  <link rel="canonical" href="https://bordyshev.pro/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bordyshev.pro/">
+  <meta property="og:title" content="Никита Бордышев — сайты, SEO, CRM и автоматизация для бизнеса">
+  <meta property="og:description" content="Не предлагаю новый сайт, если он не нужен. Нахожу точки роста в SEO, заявках, CRM и автоматизации.">
+  <meta property="og:image" content="https://bordyshev.pro/photo.jpg">
+  <meta name="theme-color" content="#111111">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--red:#a51f23;--red2:#cf3036;--ink:#111214;--ink2:#1a1b1e;--paper:#f6f5f2;--white:#ffffff;--muted:#6b6d72;--line:#deddd9;--soft:#eceae5;--good:#1e6a48;--shadow:0 18px 50px rgba(0,0,0,.10);--fh:'Oswald',Arial,sans-serif;--fb:'Inter',Arial,sans-serif;--max:1160px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--fb);line-height:1.6;-webkit-font-smoothing:antialiased}img{max-width:100%;display:block}a{color:inherit}button,input{font:inherit}.wrap{width:min(var(--max),calc(100% - 40px));margin:0 auto}.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.76rem;line-height:1;font-weight:700;text-transform:uppercase;letter-spacing:.14em}.eyebrow:before{content:"";width:26px;height:2px;background:var(--red)}.section{padding:88px 0}.section.white{background:var(--white)}.section.dark{background:var(--ink);color:var(--white)}.section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.65fr);gap:40px;align-items:end;margin-bottom:38px}.section-head h2{font-family:var(--fh);font-size:clamp(2rem,4.2vw,3.5rem);line-height:1.05;text-transform:uppercase;letter-spacing:.01em;margin:.65rem 0 0}.section-head p{margin:0;color:var(--muted);font-size:.98rem}.dark .section-head p{color:rgba(255,255,255,.65)}.muted{color:var(--muted)}.red{color:var(--red)}.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:48px;padding:.75rem 1.25rem;border:1px solid transparent;text-decoration:none;font-size:.88rem;font-weight:700;transition:.2s ease;cursor:pointer}.btn.primary{background:var(--red);color:#fff}.btn.primary:hover{background:#85181c;transform:translateY(-1px)}.btn.light{background:#fff;color:var(--ink)}.btn.light:hover{background:#eee}.btn.ghost{border-color:rgba(255,255,255,.28);color:#fff;background:transparent}.btn.ghost:hover{border-color:#fff}.btn.outline{border-color:var(--ink);background:transparent}.btn.outline:hover{background:var(--ink);color:#fff}.btn.small{min-height:40px;padding:.55rem .95rem;font-size:.8rem}.pill{display:inline-flex;align-items:center;padding:.35rem .68rem;border:1px solid rgba(255,255,255,.18);font-size:.72rem;color:rgba(255,255,255,.76);border-radius:999px}.tag{display:inline-flex;padding:.3rem .55rem;background:var(--soft);font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.tag.redtag{background:#f7dddd;color:#7b1014}.tag.darktag{background:var(--ink);color:#fff}
+    header{position:sticky;top:0;z-index:100;background:rgba(246,245,242,.94);border-bottom:1px solid rgba(17,18,20,.12);backdrop-filter:blur(14px)}.nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:28px}.logo{font-family:var(--fh);font-size:1.24rem;font-weight:700;text-decoration:none;letter-spacing:.05em}.logo b{color:var(--red)}.navlinks{display:flex;align-items:center;gap:26px}.navlinks a{font-size:.79rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;text-decoration:none}.navlinks a:hover{color:var(--red)}.hamb{display:none;border:0;background:none;font-size:1.6rem}#mobileNav{display:none;padding:0 0 18px}#mobileNav.open{display:grid;gap:10px}#mobileNav a{text-decoration:none;font-weight:700;padding:8px 0}
+    .hero{background:var(--ink);color:#fff;overflow:hidden;position:relative}.hero:before{content:"";position:absolute;width:520px;height:520px;border:110px solid rgba(165,31,35,.16);border-radius:50%;right:-230px;top:-250px}.hero-grid{min-height:700px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(360px,.85fr);gap:56px;align-items:center;padding:74px 0 70px;position:relative;z-index:1}.hero h1{font-family:var(--fh);font-size:clamp(3.2rem,6.6vw,6.7rem);line-height:.96;text-transform:uppercase;letter-spacing:-.018em;margin:1.15rem 0 1.3rem;max-width:760px}.hero h1 .accent{color:var(--red2)}.hero-lead{font-size:1.04rem;color:rgba(255,255,255,.72);max-width:690px;line-height:1.8;margin:0 0 1.6rem}.hero-promise{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:1.7rem}.hero-actions{display:flex;gap:11px;flex-wrap:wrap}.hero-note{margin-top:1.05rem;color:rgba(255,255,255,.48);font-size:.78rem}.hero-card{position:relative}.portrait{background:#222;border:1px solid rgba(255,255,255,.12);padding:12px;box-shadow:0 28px 65px rgba(0,0,0,.36)}.portrait img{width:100%;height:500px;object-fit:cover;object-position:center top;filter:saturate(.87) contrast(1.03)}.portrait-caption{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:13px 4px 1px;color:rgba(255,255,255,.68);font-size:.78rem}.portrait-caption strong{color:#fff}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:10px}.stat{background:#fff;color:var(--ink);padding:16px 14px;min-height:86px}.stat b{font-family:var(--fh);font-size:1.8rem;line-height:1;display:block;color:var(--red);margin-bottom:7px}.stat span{font-size:.72rem;color:#666;line-height:1.35}
+    .principles{background:#fff;border-bottom:1px solid var(--line)}.principles-grid{display:grid;grid-template-columns:repeat(4,1fr)}.principle{padding:24px 22px;border-right:1px solid var(--line)}.principle:last-child{border-right:0}.principle strong{display:block;font-size:.82rem;margin-bottom:4px}.principle span{font-size:.77rem;color:var(--muted)}
+    .solutions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.solution{background:#fff;border:1px solid var(--line);padding:28px;position:relative;transition:.2s ease}.solution:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.solution.highlight{border-color:var(--red);box-shadow:0 0 0 1px var(--red),var(--shadow)}.solution.highlight:after{content:"Под ваш переход";position:absolute;top:0;right:0;background:var(--red);color:#fff;padding:.34rem .65rem;font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.solution-top{display:flex;gap:12px;align-items:flex-start;justify-content:space-between}.solution h3{font-family:var(--fh);font-size:1.55rem;text-transform:uppercase;line-height:1.12;margin:.7rem 0 .75rem}.solution p{font-size:.89rem;color:#56585d;margin:0 0 1rem}.solution ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}.solution li{position:relative;padding-left:20px;font-size:.83rem}.solution li:before{content:"";position:absolute;left:0;top:.66em;width:8px;height:8px;background:var(--red)}.demo-note{margin-top:18px;padding:16px 18px;border-left:3px solid var(--red);background:#fff;font-size:.82rem;color:#555}
+    .funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#333;border:1px solid #333}.funnel-card{background:var(--ink2);padding:28px 22px;min-height:230px}.funnel-num{font-family:var(--fh);font-size:3rem;color:var(--red2);line-height:1}.funnel-card h3{font-family:var(--fh);font-size:1.22rem;text-transform:uppercase;margin:1rem 0 .6rem}.funnel-card p{font-size:.82rem;color:rgba(255,255,255,.62);margin:0}.funnel-arrow{margin-top:18px;color:rgba(255,255,255,.28);font-size:1.2rem}
+    .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.case{background:#fff;border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column}.case-img{height:210px;background:#ddd;overflow:hidden}.case-img img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .3s}.case:hover .case-img img{transform:scale(1.025)}.case-body{padding:22px;display:flex;flex-direction:column;flex:1}.case-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.case h3{font-family:var(--fh);font-size:1.34rem;text-transform:uppercase;line-height:1.15;margin:0 0 .7rem}.case p{font-size:.82rem;color:#5c5e62;margin:0 0 1rem}.case a{margin-top:auto;font-size:.78rem;font-weight:700;text-decoration:none;color:var(--red)}.more-work{margin-top:22px;background:#fff;border:1px solid var(--line);padding:21px 23px}.more-work strong{display:block;margin-bottom:8px}.more-work p{margin:0;color:var(--muted);font-size:.82rem}
+    .service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.service{border:1px solid rgba(255,255,255,.17);padding:25px 22px;background:#17181a}.service-no{font-family:var(--fh);font-size:.82rem;color:var(--red2)}.service h3{font-family:var(--fh);font-size:1.25rem;text-transform:uppercase;margin:.8rem 0 .55rem}.service p{font-size:.82rem;color:rgba(255,255,255,.63);margin:0}.service em{display:block;margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.43);font-style:normal}
+    .process{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.step{padding:23px 21px;border-top:3px solid var(--red);background:#fff;min-height:210px}.step b{font-family:var(--fh);font-size:2.5rem;color:#d7d4ce;display:block;line-height:1}.step h3{font-family:var(--fh);font-size:1.16rem;text-transform:uppercase;margin:.9rem 0 .5rem}.step p{font-size:.82rem;color:var(--muted);margin:0}
+    .about-card{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}.about-copy h2{font-family:var(--fh);font-size:clamp(2.2rem,4.2vw,3.7rem);line-height:1;text-transform:uppercase;margin:.8rem 0 1.25rem}.about-copy p{color:#555;max-width:650px}.about-list{display:grid;gap:10px;margin:24px 0 0}.about-list div{display:flex;gap:10px;align-items:flex-start;font-size:.85rem}.about-list div:before{content:"✓";color:var(--good);font-weight:800}.about-side{background:var(--ink);color:#fff;padding:34px}.about-side h3{font-family:var(--fh);font-size:1.55rem;text-transform:uppercase;margin:0 0 15px}.about-side p{color:rgba(255,255,255,.66);font-size:.86rem;margin:0 0 20px}.stack{display:flex;flex-wrap:wrap;gap:7px}.stack span{border:1px solid rgba(255,255,255,.16);padding:.35rem .58rem;font-size:.7rem;color:rgba(255,255,255,.76)}
+    .faq{display:grid;grid-template-columns:1fr 1fr;gap:12px}details{background:#fff;border:1px solid var(--line);padding:18px 20px}summary{cursor:pointer;font-weight:700;font-size:.88rem}details p{margin:.8rem 0 0;color:var(--muted);font-size:.82rem}
+    .final{background:var(--red);color:#fff;padding:70px 0}.final-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:50px;align-items:center}.final h2{font-family:var(--fh);font-size:clamp(2.5rem,5vw,4.8rem);line-height:.98;text-transform:uppercase;margin:0 0 1rem}.final p{margin:0;color:rgba(255,255,255,.82);max-width:700px}.contact-box{background:#fff;color:var(--ink);padding:25px}.contact-box strong{display:block;margin-bottom:13px}.contact-links{display:grid;gap:8px}.contact-links a{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #e5e5e5;text-decoration:none;font-size:.82rem}.contact-links a:last-child{border-bottom:0}.contact-links span{color:var(--muted)}
+    footer{background:#0b0b0c;color:rgba(255,255,255,.55);padding:25px 0}.foot{display:flex;justify-content:space-between;gap:20px;align-items:center;font-size:.75rem}.foot a{color:#fff;text-decoration:none}.floating{position:fixed;right:18px;bottom:18px;z-index:90;box-shadow:0 10px 25px rgba(0,0,0,.25)}
+    @media(max-width:980px){.navlinks{display:none}.hamb{display:block}.hero-grid{grid-template-columns:1fr;min-height:auto;padding:65px 0}.hero-card{max-width:540px}.portrait img{height:460px}.principles-grid{grid-template-columns:repeat(2,1fr)}.principle:nth-child(2){border-right:0}.principle:nth-child(-n+2){border-bottom:1px solid var(--line)}.section-head{grid-template-columns:1fr;gap:15px}.funnel,.service-grid,.process{grid-template-columns:repeat(2,1fr)}.case-grid{grid-template-columns:1fr 1fr}.about-card,.final-grid{grid-template-columns:1fr}}
+    @media(max-width:680px){.wrap{width:min(var(--max),calc(100% - 28px))}.section{padding:62px 0}.nav{height:62px}.hero-grid{padding:50px 0 54px;gap:30px}.hero h1{font-size:clamp(2.75rem,14vw,4.25rem)}.hero-lead{font-size:.94rem}.portrait img{height:390px}.stats{grid-template-columns:1fr 1fr 1fr}.stat{padding:13px 10px}.stat b{font-size:1.5rem}.stat span{font-size:.65rem}.principles-grid,.solutions,.funnel,.case-grid,.service-grid,.process,.faq{grid-template-columns:1fr}.principle{border-right:0;border-bottom:1px solid var(--line)!important}.principle:last-child{border-bottom:0!important}.solution{padding:23px}.funnel-card{min-height:auto}.floating{left:14px;right:14px;bottom:12px}.floating.btn{width:calc(100% - 28px)}.foot{flex-direction:column;align-items:flex-start}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Никита Бордышев","url":"https://bordyshev.pro/","image":"https://bordyshev.pro/photo.jpg","jobTitle":"Специалист по сайтам, SEO, CRM и AI-автоматизации","sameAs":["https://t.me/bordyshev","https://www.youtube.com/@BORDYSHEV","https://vk.com/bordyshev_official"],"knowsAbout":["SEO","CRM","web development","business automation","AI automation","chatbots"]}</script>
 </head>
 <body>
-
-<nav>
-  <a href="#hero" class="nav-logo">НБ<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="#about">Обо мне</a></li>
-    <li><a href="#services">Услуги</a></li>
-    <li><a href="#projects">Проекты</a></li>
-    <li><a href="#blog">Блог</a></li>
-    <li><a href="#contact">Контакт</a></li>
-  </ul>
-  <a href="https://t.me/bordyshev_official" target="_blank" class="nav-cta">Написать в TG</a>
-  <button class="burger" id="brg" aria-label="Меню"><span></span><span></span><span></span></button>
-</nav>
-
-<div id="mob-nav">
-  <ul>
-    <li><a href="#about" class="ml">Обо мне</a></li>
-    <li><a href="#services" class="ml">Услуги</a></li>
-    <li><a href="#projects" class="ml">Проекты</a></li>
-    <li><a href="#blog" class="ml">Блог</a></li>
-    <li><a href="#contact" class="ml">Контакт</a></li>
-  </ul>
-  <a href="https://t.me/bordyshev_official" target="_blank" class="nav-cta ml" style="margin-top:2rem;display:inline-block;">Написать в TG</a>
-</div>
-
-<!-- HERO -->
-<section id="hero">
-  <canvas id="math-canvas"></canvas>
-  <div class="hero-left">
-    <span class="hero-tag">Доступен к работе</span>
-    <h1 class="hero-name">Никита<br><span>Бордышев</span></h1>
-    <p class="hero-sub">Предприниматель &amp; AI-builder &amp; Блоггер</p>
-    <p class="hero-desc">Строю продукты с ИИ, автоматизирую бизнес-процессы и создаю чат-ботов. Запускаю SaaS-сервисы и делюсь опытом в блоге.</p>
-    <div class="hero-btns">
-      <a href="#projects" class="btn-red">Смотреть проекты</a>
-      <a href="#contact" class="btn-outline">Написать мне</a>
-    </div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top">BORDYSHEV<b>.</b>PRO</a>
+    <nav class="navlinks" aria-label="Основная навигация"><a href="#solutions">Решения</a><a href="#cases">Реальные проекты</a><a href="#process">Как работаю</a><a href="#about">Обо мне</a></nav>
+    <a class="btn primary small" href="mailto:nikitabordyshev@yandex.ru?subject=Бесплатный%20разбор%20сайта">Получить разбор</a>
+    <button class="hamb" id="hamb" aria-label="Открыть меню">☰</button>
   </div>
-  <div class="hero-right">
-    <img src="photo.jpg" alt="Никита Бордышев — AI-creator, Москва-Сити">
-  </div>
-</section>
-
-<!-- FACTS -->
-<section id="facts">
-  <div class="sec-head fi"><h2>Цифры и факты</h2></div>
-  <div class="facts-grid">
-    <div class="fact-card fi"><div class="fact-num">5+</div><div class="fact-label">Лет в digital</div></div>
-    <div class="fact-card fi"><div class="fact-num">30+</div><div class="fact-label">Проектов выполнено</div></div>
-    <div class="fact-card fi"><div class="fact-num">20+</div><div class="fact-label">Клиентов по России</div></div>
-    <div class="fact-card fi"><div class="fact-num">3</div><div class="fact-label">Блога и канала</div></div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="sec-head fi"><h2>Обо мне</h2></div>
-  <div class="about-inner">
-    <div class="about-text fi">
-      <p>Меня зовут Никита Бордышев — я помогаю бизнесу расти через ИИ, автоматизацию и грамотно выстроенное цифровое присутствие.</p>
-      <p>Работаю на стыке технологий и маркетинга: создаю чат-ботов, которые реально закрывают бизнес-задачи, строю сайты под ключ и настраиваю CRM, связывая её со всеми каналами компании.</p>
-      <p>Параллельно веду блог — делюсь кейсами честно и без воды.</p>
-    </div>
-    <div class="about-items fi">
-      <div class="about-item"><div class="ai-icon">🤖</div><div class="ai-text"><strong>ИИ и автоматизация</strong><span>Чат-боты, интеграции нейросетей, оптимизация бизнес-процессов</span></div></div>
-      <div class="about-item"><div class="ai-icon">🌐</div><div class="ai-text"><strong>Создание сайтов</strong><span>1С-Битрикс, WordPress, Tilda — любой сложности, под ключ</span></div></div>
-      <div class="about-item"><div class="ai-icon">📈</div><div class="ai-text"><strong>SEO и продвижение</strong><span>Технический аудит, контент-стратегия, рост органики</span></div></div>
-      <div class="about-item"><div class="ai-icon">🗂️</div><div class="ai-text"><strong>CRM-системы</strong><span>Битрикс24, МойСклад — настройка, интеграция, автоматизация</span></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- BANNER 1 -->
-<div class="banner fi">
-  <div class="banner-text">Нужен <span>чат-бот или автоматизация</span> для бизнеса? Обсудим задачу бесплатно</div>
-  <a href="https://t.me/bordyshev_official" target="_blank" class="btn-red">Написать в Telegram</a>
-</div>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="sec-head fi"><h2>Услуги</h2></div>
-  <div class="services-grid">
-    <div class="svc-card fi"><span class="svc-icon">🤖</span><div class="svc-title">Чат-боты и ИИ</div><div class="svc-desc">Разработка Telegram-ботов любой сложности. Интеграция GPT/Claude в бизнес-процессы. Автоматические воронки и ответы 24/7.</div><a href="https://t.me/bordyshev_official" target="_blank" class="svc-link">Обсудить проект</a></div>
-    <div class="svc-card fi"><span class="svc-icon">⚙️</span><div class="svc-title">Автоматизация бизнеса</div><div class="svc-desc">Связка сервисов, настройка n8n / Make, триггеры и воронки. Убираем ручную рутину — экономим время и деньги.</div><a href="https://t.me/bordyshev_official" target="_blank" class="svc-link">Обсудить проект</a></div>
-    <div class="svc-card fi"><span class="svc-icon">🌐</span><div class="svc-title">Создание сайтов</div><div class="svc-desc">Лендинги, корпоративные сайты, интернет-магазины на 1С-Битрикс, WordPress, Tilda. Разработка под ключ — от дизайна до запуска.</div><a href="https://t.me/bordyshev_official" target="_blank" class="svc-link">Обсудить проект</a></div>
-    <div class="svc-card fi"><span class="svc-icon">📈</span><div class="svc-title">SEO продвижение</div><div class="svc-desc">Технический и контентный аудит. Продвижение в Яндексе и Google. Рост органики и позиций по целевым запросам.</div><a href="https://t.me/bordyshev_official" target="_blank" class="svc-link">Обсудить проект</a></div>
-    <div class="svc-card fi"><span class="svc-icon">🗂️</span><div class="svc-title">CRM-системы</div><div class="svc-desc">Внедрение Битрикс24 и МойСклад. Интеграция с сайтом, мессенджерами и телефонией. Автоматические задачи и отчёты.</div><a href="https://t.me/bordyshev_official" target="_blank" class="svc-link">Обсудить проект</a></div>
-    <div class="svc-card fi"><span class="svc-icon">💡</span><div class="svc-title">Консультация</div><div class="svc-desc">Разбор вашей задачи, аудит процессов и подбор технологий. Стратегия цифровой трансформации под ваш бизнес.</div><a href="https://t.me/bordyshev_official" target="_blank" class="svc-link">Записаться</a></div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="sec-head fi"><h2>Проекты</h2></div>
-  <div class="proj-main">
-    <div class="proj-item fi">
-      <div class="proj-imgs">
-        <div class="proj-imgs-dual">
-          <img src="ai_anton.png" alt="AI-тренер Антон — интерфейс">
-          <img src="ai_anton1.png" alt="AI-тренер Антон — меню">
-        </div>
-      </div>
-      <div class="proj-body">
-        <div class="proj-tags">
-          <span class="p-tag red">Telegram Bot</span>
-          <span class="p-tag">n8n</span>
-          <span class="p-tag">OpenAI</span>
-          <span class="p-tag">Supabase</span>
-        </div>
-        <h3 class="proj-title">AI-тренер «Антон» в Telegram</h3>
-        <p class="proj-desc">Персональный AI-тренер прямо в Telegram. Хранит профиль пользователя, помнит старые программы от тренера, сам присылает тренировки по расписанию. Учитывает цель, оборудование, ограничения и самочувствие — адаптирует план автоматически. Еженедельно присылает сводку: выполнено, пропущено, средний RPE. Стек: Telegram + n8n + OpenAI + Supabase.</p>
-        <a href="https://t.me/bordyshev" target="_blank" class="proj-link">Читать кейс в блоге</a>
-      </div>
-    </div>
-  </div>
-  <div class="proj-grid2" style="grid-template-columns:1fr;max-width:1100px;">
-    <div class="proj-sm fi" style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1.5rem;align-items:center;">
+  <div class="wrap" id="mobileNav"><a href="#solutions">Решения</a><a href="#cases">Реальные проекты</a><a href="#process">Как работаю</a><a href="#about">Обо мне</a></div>
+</header>
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
       <div>
-        <div class="proj-tags" style="margin-bottom:.9rem;"><span class="p-tag red">SaaS</span><span class="p-tag">Next.js</span><span class="p-tag">Supabase</span></div>
-        <div style="font-family:var(--fh);font-size:1.2rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.7rem;">Pagly — конструктор страниц <span class="badge-wip">В разработке</span></div>
-        <p style="font-size:.865rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">Минималистичный SaaS-конструктор публичных страниц для ссылок и соцсетей. Публикация по slug, аналитика просмотров и кликов. Рабочий MVP с личным кабинетом и тарифами.</p>
-        <a href="https://pagly.ru" target="_blank" class="proj-link" style="display:inline-flex;">Открыть Pagly</a>
+        <div class="eyebrow">Сайты · SEO · CRM · AI-автоматизация</div>
+        <h1 id="heroTitle">Помогаю бизнесу <span class="accent">получать</span> и не терять заявки</h1>
+        <p class="hero-lead" id="heroLead">Не предлагаю новый сайт, если он вам не нужен. Сначала смотрю текущий сайт и путь клиента, затем показываю 2–3 конкретные точки роста: поисковый трафик, форма/квиз, CRM или автоматизация.</p>
+        <div class="hero-promise"><span class="pill">Стоматологии и клиники</span><span class="pill">Мебель и производство</span><span class="pill">Автосервисы и детейлинг</span><span class="pill">Услуги и B2B</span></div>
+        <div class="hero-actions"><a id="auditBtn" class="btn primary" href="mailto:nikitabordyshev@yandex.ru?subject=3%20идеи%20по%20моему%20сайту">Получить 3 идеи по моему сайту →</a><a class="btn ghost" href="https://t.me/bordyshev_official" target="_blank" rel="noopener">Написать в Telegram</a></div>
+        <div class="hero-note">Новосибирск · работаю по России · общаетесь напрямую со мной</div>
       </div>
-      <div style="overflow:hidden;border:1px solid var(--gray2);">
-        <img src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fpagly.ru%2F?w=1200" alt="Pagly — актуальный снимок сайта" style="width:100%;display:block;object-fit:cover;max-height:260px;object-position:top;">
-      </div>
-    </div>
-  </div>
-  <div class="client-projects">
-    <article class="client-proj fi">
-      <div class="client-shot">
-        <img loading="lazy" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fbigar-sport.ru%2F?w=1200" alt="BIG'AR SPORT — интернет-магазин спортивных товаров — превью сайта">
-        <span class="client-domain">bigar-sport.ru</span>
-      </div>
-      <div class="client-body">
-        <div class="proj-tags"><span class="p-tag red">1С-Битрикс</span><span class="p-tag">Сайт под ключ</span><span class="p-tag">SEO</span></div>
-        <h3 class="client-title">BIG'AR SPORT — интернет-магазин спортивных товаров</h3>
-        <p class="client-desc">Запуск интернет-магазина под ключ на 1С-Битрикс на базе готового решения. Адаптировал структуру и шаблон под задачи клиента, наполнил сайт контентом и каталогом, провёл конкурентный анализ и выполнил стартовую SEO-оптимизацию.</p>
-        <a href="https://bigar-sport.ru/" target="_blank" rel="noopener" class="proj-link">Открыть сайт</a>
-      </div>
-    </article>
-    <article class="client-proj fi">
-      <div class="client-shot">
-        <img loading="lazy" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwww.kamtent.com%2F?w=1200" alt="KAMTENT — каркасно-тентовые конструкции — превью сайта">
-        <span class="client-domain">kamtent.com</span>
-      </div>
-      <div class="client-body">
-        <div class="proj-tags"><span class="p-tag red">SEO</span><span class="p-tag">Контент</span><span class="p-tag">Администрирование</span></div>
-        <h3 class="client-title">KAMTENT — каркасно-тентовые конструкции</h3>
-        <p class="client-desc">Комплексно сопровождал сайт производителя: администрирование, регулярное контентное наполнение и SEO-продвижение. Работал со структурой, посадочными страницами и актуальностью материалов для роста поисковой видимости.</p>
-        <a href="https://www.kamtent.com/" target="_blank" rel="noopener" class="proj-link">Открыть сайт</a>
-      </div>
-    </article>
-    <article class="client-proj fi">
-      <div class="client-shot">
-        <img loading="lazy" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fstart-line.ru%2F?w=1200" alt="Start Line — товары для спорта и отдыха — превью сайта">
-        <span class="client-domain">start-line.ru</span>
-      </div>
-      <div class="client-body">
-        <div class="proj-tags"><span class="p-tag red">1С-Битрикс</span><span class="p-tag">SEO</span><span class="p-tag">Контент</span></div>
-        <h3 class="client-title">Start Line — товары для спорта и отдыха</h3>
-        <p class="client-desc">Администрировал интернет-магазин на 1С-Битрикс, занимался SEO-продвижением и контентным наполнением. Поддерживал структуру каталога и актуальность товарных страниц.</p>
-        <a href="https://start-line.ru/" target="_blank" rel="noopener" class="proj-link">Открыть сайт</a>
-      </div>
-    </article>
-    <article class="client-proj fi">
-      <div class="client-shot">
-        <img loading="lazy" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ffabrika-start.ru%2F?w=1200" alt="Фабрика «Старт» — бильярдные столы и оборудование — превью сайта">
-        <span class="client-domain">fabrika-start.ru</span>
-      </div>
-      <div class="client-body">
-        <div class="proj-tags"><span class="p-tag red">1С-Битрикс</span><span class="p-tag">SEO</span><span class="p-tag">Контент</span></div>
-        <h3 class="client-title">Фабрика «Старт» — бильярдные столы и оборудование</h3>
-        <p class="client-desc">Административная работа в 1С-Битрикс, SEO-продвижение и наполнение сайта контентом. Работал с каталогом, посадочными страницами и поисковой оптимизацией крупного интернет-магазина производителя.</p>
-        <a href="https://fabrika-start.ru/" target="_blank" rel="noopener" class="proj-link">Открыть сайт</a>
-      </div>
-    </article>
-    <article class="client-proj fi">
-      <div class="client-shot">
-        <img loading="lazy" src="nails.webp" alt="Nails54 — фото маникюра">
-        <span class="client-domain">nails54.ru</span>
-      </div>
-      <div class="client-body">
-        <div class="proj-tags"><span class="p-tag red">SEO</span><span class="p-tag">Семантика</span><span class="p-tag">ТЗ разработчикам</span></div>
-        <h3 class="client-title">Nails54 — центр обучения маникюру</h3>
-        <p class="client-desc">Собрал и кластеризовал семантическое ядро, распределил запросы по страницам, создавал новые SEO-посадочные и тексты. Готовил технические задания разработчикам на внедрение изменений.</p>
-        <a href="http://nails54.ru/" target="_blank" rel="noopener" class="proj-link">Открыть сайт</a>
-      </div>
-    </article>
-    <article class="client-proj fi">
-      <div class="client-shot">
-        <img loading="lazy" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fprobiotics54.ru%2F?w=1200" alt="«Пробиотики Сибири» — производство косметики — превью сайта">
-        <span class="client-domain">probiotics54.ru</span>
-      </div>
-      <div class="client-body">
-        <div class="proj-tags"><span class="p-tag red">SEO</span><span class="p-tag">Семантика</span><span class="p-tag">Контент</span></div>
-        <h3 class="client-title">«Пробиотики Сибири» — производство косметики</h3>
-        <p class="client-desc">Сформировал семантическое ядро и карту распределения запросов, создавал новые страницы и SEO-тексты. Подготавливал технические задания разработчикам для доработки сайта под поисковое продвижение.</p>
-        <a href="https://probiotics54.ru/" target="_blank" rel="noopener" class="proj-link">Открыть сайт</a>
-      </div>
-    </article>
-    <article class="client-proj fi">
-      <div class="client-shot">
-        <img loading="lazy" src="https://s.wordpress.com/mshots/v1/http%3A%2F%2Fdrevonsk.ru%2F?w=1200" alt="DrevoNSK — остекление балконов и фасады — превью сайта">
-        <span class="client-domain">drevonsk.ru</span>
-      </div>
-      <div class="client-body">
-        <div class="proj-tags"><span class="p-tag red">SEO</span><span class="p-tag">Семантика</span><span class="p-tag">Контент</span></div>
-        <h3 class="client-title">DrevoNSK — остекление балконов и фасады</h3>
-        <p class="client-desc">Провёл семантическую проработку направления: сбор и кластеризация запросов, распределение по посадочным страницам, создание новых страниц и текстов. Ставил задачи разработчикам на технические доработки.</p>
-        <a href="http://drevonsk.ru/" target="_blank" rel="noopener" class="proj-link">Открыть сайт</a>
-      </div>
-    </article>
-    <article class="client-proj fi">
-      <div class="client-shot">
-        <img loading="lazy" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwww.klintime.ru%2F?w=1200" alt="Клинтайм 54 — клининговая компания — превью сайта">
-        <span class="client-domain">klintime.ru</span>
-      </div>
-      <div class="client-body">
-        <div class="proj-tags"><span class="p-tag red">SEO</span><span class="p-tag">Семантика</span><span class="p-tag">Контент</span></div>
-        <h3 class="client-title">Клинтайм 54 — клининговая компания</h3>
-        <p class="client-desc">Работал над SEO-структурой сайта: собирал семантическое ядро, распределял запросы, создавал посадочные страницы и тексты, формировал технические задания разработчикам.</p>
-        <a href="https://www.klintime.ru/" target="_blank" rel="noopener" class="proj-link">Открыть сайт</a>
-      </div>
-    </article>
-    <article class="client-proj fi">
-      <div class="client-shot">
-        <img loading="lazy" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fposhvu.ru%2F?w=1200" alt="ПоШву — интернет-магазин тканей — превью сайта">
-        <span class="client-domain">poshvu.ru</span>
-      </div>
-      <div class="client-body">
-        <div class="proj-tags"><span class="p-tag red">SEO</span><span class="p-tag">E-commerce</span></div>
-        <h3 class="client-title">ПоШву — интернет-магазин тканей</h3>
-        <p class="client-desc">Работал над SEO-продвижением интернет-магазина тканей: анализировал и оптимизировал структуру, посадочные страницы и контент для повышения поисковой видимости сайта.</p>
-        <a href="https://poshvu.ru/" target="_blank" rel="noopener" class="proj-link">Открыть сайт</a>
-      </div>
-    </article>
-    <article class="client-proj fi">
-      <div class="client-shot">
-        <img loading="lazy" src="ntkani.webp" alt="N-Tkani — ткани">
-        <span class="client-domain">n-tkani.ru</span>
-      </div>
-      <div class="client-body">
-        <div class="proj-tags"><span class="p-tag red">SEO</span><span class="p-tag">Яндекс Директ</span></div>
-        <h3 class="client-title">N-Tkani — магазин тканей</h3>
-        <p class="client-desc">Занимался SEO-работами по сайту и подготовкой рекламных объявлений для Яндекс Директа. Совмещал задачи органического продвижения и контекстной рекламы.</p>
-        <a href="https://n-tkani.ru/" target="_blank" rel="noopener" class="proj-link">Открыть сайт</a>
-      </div>
-    </article>
-    <article class="client-proj fi">
-      <div class="client-shot">
-        <img loading="lazy" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2F%D0%BF%D0%BE%D1%81%D1%83%D1%88%D0%B8.%D1%80%D1%84%2F?w=1200" alt="#Посуши — доставка суши в Новосибирске — превью сайта">
-        <span class="client-domain">посуши.рф</span>
-      </div>
-      <div class="client-body">
-        <div class="proj-tags"><span class="p-tag red">Редизайн сайта</span><span class="p-tag">SEO</span><span class="p-tag">Контент</span><span class="p-tag">Фото</span></div>
-        <h3 class="client-title">#Посуши — доставка суши в Новосибирске</h3>
-        <p class="client-desc">Пересобрал сайт с нуля, выполнил базовую SEO-настройку и полностью наполнил ресурс: страницы, каталог и карточки товаров. Дополнительно фотографировал продукцию и обрабатывал изображения для сайта.</p>
-        <a href="https://посуши.рф/" target="_blank" rel="noopener" class="proj-link">Открыть сайт</a>
-      </div>
-    </article>
-  </div>
-  <p class="projects-note fi">В части старых клиентских проектов сайты могли быть переработаны владельцами после завершения моей работы. В описаниях указана моя зона ответственности в период сотрудничества.</p>
-</section>
-
-<!-- BANNER 2 -->
-<div class="banner fi">
-  <div class="banner-text">Есть задача? <span>Разберём бесплатно</span> — что нужно именно вашему бизнесу</div>
-  <a href="mailto:nikitabordyshev@yandex.ru" class="btn-red">Написать на почту</a>
-</div>
-
-<!-- BLOG -->
-<section id="blog">
-  <div class="sec-head fi"><h2>Блог и соцсети</h2></div>
-  <div class="blog-grid">
-    <a href="https://www.youtube.com/@BORDYSHEV" target="_blank" class="blog-card fi">
-      <div class="blog-icon-wrap"><div class="blog-icon-box" style="background:#ff0000;"><svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg></div></div>
-      <div class="blog-body"><div class="blog-platform">YouTube</div><div class="blog-name">@BORDYSHEV</div><div class="blog-desc">Видео-кейсы, разборы инструментов и туториалы по ИИ и автоматизации</div></div>
-    </a>
-    <a href="https://t.me/bordyshev" target="_blank" class="blog-card fi">
-      <div class="blog-icon-wrap"><div class="blog-icon-box" style="background:#229ED9;"><svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.94 8.19l-2.02 9.52c-.15.67-.54.84-1.09.52l-3-2.21-1.45 1.4c-.16.16-.3.3-.61.3l.21-3.05 5.52-4.99c.24-.21-.05-.33-.37-.12L6.56 13.9 3.6 12.97c-.66-.2-.67-.66.14-.98l11.61-4.48c.55-.2 1.03.13.59 1.68z"/></svg></div></div>
-      <div class="blog-body"><div class="blog-platform">Telegram</div><div class="blog-name">@bordyshev</div><div class="blog-desc">Кейсы, инструменты и находки — без воды, только практика про ИИ</div></div>
-    </a>
-    <a href="https://vk.com/bordyshev_official" target="_blank" class="blog-card fi">
-      <div class="blog-icon-wrap"><div class="blog-icon-box" style="background:#0077FF;"><svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14C20.67 22 22 20.67 22 15.07V8.93C22 3.33 20.67 2 15.07 2zm3.08 13.52h-1.57c-.59 0-.77-.47-1.84-1.55-.93-.9-1.34-.9-1.57-.9-.32 0-.41.09-.41.54v1.41c0 .39-.12.62-1.16.62-1.71 0-3.6-1.04-4.93-2.97C5.3 10.5 4.75 8.38 4.75 7.9c0-.23.09-.45.54-.45h1.57c.4 0 .55.18.71.62.77 2.11 2.07 3.96 2.6 3.96.2 0 .29-.09.29-.59V9.62c-.06-1.06-.62-1.15-.62-1.53 0-.18.15-.36.39-.36h2.47c.33 0 .45.18.45.57v3.06c0 .33.15.45.24.45.2 0 .37-.12.74-.49 1.14-1.27 1.96-3.22 1.96-3.22.11-.23.29-.45.69-.45h1.57c.47 0 .57.24.47.57-.2.93-2.12 3.63-2.12 3.63-.17.27-.23.39 0 .69.17.23.73.71 1.1 1.14.68.77 1.21 1.41 1.35 1.86.15.44-.09.67-.54.67z"/></svg></div></div>
-      <div class="blog-body"><div class="blog-platform">ВКонтакте</div><div class="blog-name">bordyshev_official</div><div class="blog-desc">Публикации, кейсы и анонсы новых проектов</div></div>
-    </a>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="sec-head fi"><h2>Связаться со мной</h2></div>
-  <div class="contact-inner">
-    <p class="contact-lead fi">Есть задача по ИИ, автоматизации или нужен сайт? Напишите — обсудим бесплатно, что подойдёт именно вам.</p>
-    <div class="contact-cards fi">
-      <a href="https://max.ru/u/f9LHodD0cOJBV1T3BpTBwe68VrgL1G6RXTrwWW2RSpDvZWPYYeOesmhELEY" target="_blank" rel="noopener" class="c-card">
-        <div class="c-icon" style="background:#2563EB;color:#fff;font-family:var(--fh);font-size:.72rem;font-weight:700;letter-spacing:.04em;">MAX</div>
-        <div class="c-label">MAX</div><div class="c-val">Написать в MAX</div>
-      </a>
-      <a href="https://t.me/bordyshev_official" target="_blank" class="c-card">
-        <div class="c-icon" style="background:#229ED9;"><svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.94 8.19l-2.02 9.52c-.15.67-.54.84-1.09.52l-3-2.21-1.45 1.4c-.16.16-.3.3-.61.3l.21-3.05 5.52-4.99c.24-.21-.05-.33-.37-.12L6.56 13.9 3.6 12.97c-.66-.2-.67-.66.14-.98l11.61-4.48c.55-.2 1.03.13.59 1.68z"/></svg></div>
-        <div class="c-label">Telegram</div><div class="c-val">@bordyshev_official</div>
-      </a>
-      <a href="mailto:nikitabordyshev@yandex.ru" class="c-card">
-        <div class="c-icon" style="background:var(--red);"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></div>
-        <div class="c-label">Email</div><div class="c-val">nikitabordyshev@yandex.ru</div>
-      </a>
-      <a href="https://vk.com/nikitabordyshev" target="_blank" class="c-card">
-        <div class="c-icon" style="background:#0077FF;"><svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14C20.67 22 22 20.67 22 15.07V8.93C22 3.33 20.67 2 15.07 2zm3.08 13.52h-1.57c-.59 0-.77-.47-1.84-1.55-.93-.9-1.34-.9-1.57-.9-.32 0-.41.09-.41.54v1.41c0 .39-.12.62-1.16.62-1.71 0-3.6-1.04-4.93-2.97C5.3 10.5 4.75 8.38 4.75 7.9c0-.23.09-.45.54-.45h1.57c.4 0 .55.18.71.62.77 2.11 2.07 3.96 2.6 3.96.2 0 .29-.09.29-.59V9.62c-.06-1.06-.62-1.15-.62-1.53 0-.18.15-.36.39-.36h2.47c.33 0 .45.18.45.57v3.06c0 .33.15.45.24.45.2 0 .37-.12.74-.49 1.14-1.27 1.96-3.22 1.96-3.22.11-.23.29-.45.69-.45h1.57c.47 0 .57.24.47.57-.2.93-2.12 3.63-2.12 3.63-.17.27-.23.39 0 .69.17.23.73.71 1.1 1.14.68.77 1.21 1.41 1.35 1.86.15.44-.09.67-.54.67z"/></svg></div>
-        <div class="c-label">ВКонтакте</div><div class="c-val">nikitabordyshev</div>
-      </a>
-    </div>
-    <a href="https://t.me/bordyshev_official" target="_blank" class="btn-red fi">Написать в Telegram</a>
-  </div>
-</section>
-
-<footer>
-  <span>© 2026 Никита Бордышев</span>
-  <div class="foot-links">
-    <a href="#about">Обо мне</a>
-    <a href="#services">Услуги</a>
-    <a href="#projects">Проекты</a>
-    <a href="#blog">Блог</a>
-    <a href="#contact">Контакт</a>
-  </div>
-  <span>Сделано с ☕</span>
-</footer>
-
-<!-- CHAT WIDGET -->
-<div id="chat-widget">
-  <div id="chat-box">
-    <div class="chat-head">
-      <div class="chat-avatar">НБ</div>
-      <div class="chat-head-info">
-        <div class="chat-head-name">Никита Бордышев</div>
-        <div class="chat-head-status">Обычно отвечаю за час</div>
+      <div class="hero-card">
+        <div class="portrait"><img src="/photo.jpg" alt="Никита Бордышев"><div class="portrait-caption"><strong>Никита Бордышев</strong><span>Digital / AI / автоматизация</span></div></div>
+        <div class="stats"><div class="stat"><b>5+</b><span>лет в digital</span></div><div class="stat"><b>30+</b><span>проектов выполнено</span></div><div class="stat"><b>20+</b><span>клиентов по России</span></div></div>
       </div>
     </div>
-    <div class="chat-body">
-      <div class="chat-msg">Привет! 👋 Есть вопрос или задача? Напишите — отвечу в MAX.</div>
-      <div class="chat-input-row">
-        <input class="chat-inp" id="chat-text" type="text" placeholder="Ваше сообщение...">
-        <button class="chat-send" id="chat-send-btn">→</button>
-      </div>
-      <div class="chat-note">Нажимая кнопку, вы откроете MAX.<br>Текст сообщения скопируется — останется вставить его в чат.</div>
+  </section>
+  <section class="principles"><div class="wrap principles-grid"><div class="principle"><strong>Не продаю переделку ради переделки</strong><span>Если текущий сайт нормальный — работаем точечно.</span></div><div class="principle"><strong>Сначала проблема, потом инструмент</strong><span>SEO, CRM или бот нужны только если решают задачу.</span></div><div class="principle"><strong>Начинаем с компактного этапа</strong><span>Без обязательства сразу запускать большой проект.</span></div><div class="principle"><strong>Сайт связываю с продажами</strong><span>Важно не только получить лид, но и не потерять его дальше.</span></div></div></section>
+  <section class="section" id="solutions">
+    <div class="wrap"><div class="section-head"><div><div class="eyebrow">Решения под ниши</div><h2>Что можно внедрить именно в вашем бизнесе</h2></div><p>Сейчас моя исходящая работа сфокусирована на нескольких типах компаний. Ниже — не выдуманные клиенты, а понятные сценарии, которые можно собрать под конкретный бизнес.</p></div>
+      <div class="solutions" id="solutionGrid">
+        <article class="solution" data-niche="dental"><div class="solution-top"><span class="tag redtag">Клиники / стоматологии</span><span class="tag">SEO + CRM</span></div><h3>Пациент быстрее попадает к нужной услуге и записи</h3><p>Для клиники с уже существующим сайтом чаще нужен не редизайн, а понятный маршрут пациента и аналитика заявок.</p><ul><li>SEO-страницы под имплантацию, ортодонтию и другие приоритетные услуги</li><li>Умная форма: причина обращения, услуга, удобное время</li><li>Заявки сайта и мессенджеров в одной CRM</li><li>Отслеживание, какие страницы и каналы реально приводят запись</li></ul></article>
+        <article class="solution" data-niche="mebel"><div class="solution-top"><span class="tag redtag">Мебель / производство</span><span class="tag">Квиз + CRM</span></div><h3>Менеджер получает не «имя + телефон», а готовый бриф</h3><p>До звонка клиент может указать тип мебели, размеры, фото, материалы и ориентир бюджета.</p><ul><li>Квиз предварительного расчёта и замера</li><li>SEO по кухням, шкафам, гардеробным и другим категориям</li><li>Автоматическое создание лида и задачи менеджеру</li><li>Единый учёт заявок из сайта, WhatsApp и Telegram</li></ul></article>
+        <article class="solution" data-niche="auto"><div class="solution-top"><span class="tag redtag">Автосервис / детейлинг</span><span class="tag">Запись + CRM</span></div><h3>Заявка сразу содержит машину, проблему и удобное время</h3><p>Вместо общего «перезвоните мне» сервис получает подготовленное обращение и может быстрее записать клиента.</p><ul><li>Страницы по маркам, типовым неисправностям и маржинальным услугам</li><li>Быстрая запись: авто, симптомы, услуга, время</li><li>Автораспределение по услуге или филиалу</li><li>Учёт источника и ценности заявки в CRM</li></ul></article>
+        <article class="solution" data-niche="service"><div class="solution-top"><span class="tag redtag">Услуги / B2B</span><span class="tag">Сайт + автоматизация</span></div><h3>Меньше переписки до расчёта, больше подготовленных лидов</h3><p>Подходит ремонту, вентиляции, клинингу, юристам, недвижимости и другим услугам с предварительным расчётом.</p><ul><li>Посадочные под конкретные сценарии и услуги</li><li>Калькулятор, квиз или первичный бриф</li><li>Автоматическая отправка заявки в Telegram/CRM</li><li>Напоминания, статусы и follow-up без ручной рутины</li></ul></article>
+      </div><div class="demo-note">Если вы пришли сюда из моего письма, я обычно уже посмотрел ваш сайт. Поэтому первый шаг — не «презентация услуг», а короткий разбор конкретно вашей текущей воронки.</div>
     </div>
-  </div>
-  <div id="chat-bubble" title="Написать Никите в MAX">
-    <svg id="icon-msg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <svg id="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-  </div>
-</div>
-
+  </section>
+  <section class="section dark"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Не просто сайт</div><h2>Как заявка проходит через систему</h2></div><p>Самая частая потеря денег происходит не на дизайне сайта, а между рекламой/поиском, формой, менеджером и следующим касанием.</p></div><div class="funnel"><div class="funnel-card"><div class="funnel-num">01</div><h3>Поиск / реклама</h3><p>Человек попадает сразу на страницу своей услуги или задачи, а не блуждает по общему сайту.</p><div class="funnel-arrow">→</div></div><div class="funnel-card"><div class="funnel-num">02</div><h3>Квалификация</h3><p>Форма или квиз собирает ключевые данные: услуга, параметры, срок, контакт.</p><div class="funnel-arrow">→</div></div><div class="funnel-card"><div class="funnel-num">03</div><h3>CRM / менеджер</h3><p>Лид автоматически создаётся в нужной воронке, назначается ответственный и следующая задача.</p><div class="funnel-arrow">→</div></div><div class="funnel-card"><div class="funnel-num">04</div><h3>Повторное касание</h3><p>Неответившие заявки не исчезают: напоминание, follow-up и аналитика источника остаются в системе.</p></div></div></div></section>
+  <section class="section white" id="cases">
+    <div class="wrap"><div class="section-head"><div><div class="eyebrow">Реальная работа</div><h2>Проекты, которые можно проверить</h2></div><p>Здесь оставил только реальные проекты и реальную зону ответственности. Для ниш, где публичного кейса пока нет, выше показаны типовые решения, а не выдуманные компании.</p></div>
+      <div class="case-grid">
+        <article class="case"><div class="case-img"><img loading="lazy" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fbigar-sport.ru%2F?w=1200" alt="BIG'AR SPORT — сайт"></div><div class="case-body"><div class="case-tags"><span class="tag redtag">1С-Битрикс</span><span class="tag">SEO</span><span class="tag">E-commerce</span></div><h3>BIG'AR SPORT</h3><p>Запуск интернет-магазина под ключ: адаптация решения, структура, каталог, контент, конкурентный анализ и стартовая SEO-оптимизация.</p><a href="https://bigar-sport.ru/" target="_blank" rel="noopener">Открыть сайт →</a></div></article>
+        <article class="case"><div class="case-img"><img loading="lazy" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwww.kamtent.com%2F?w=1200" alt="KAMTENT — сайт"></div><div class="case-body"><div class="case-tags"><span class="tag redtag">B2B</span><span class="tag">SEO</span><span class="tag">Контент</span></div><h3>KAMTENT</h3><p>Сопровождение сайта производителя: SEO, структура, посадочные страницы, контент и регулярное администрирование.</p><a href="https://www.kamtent.com/" target="_blank" rel="noopener">Открыть сайт →</a></div></article>
+        <article class="case"><div class="case-img"><img loading="lazy" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Ffabrika-start.ru%2F?w=1200" alt="Фабрика Старт — сайт"></div><div class="case-body"><div class="case-tags"><span class="tag redtag">Производство</span><span class="tag">1С-Битрикс</span><span class="tag">SEO</span></div><h3>Фабрика «Старт»</h3><p>Работа с крупным сайтом производителя: администрирование, каталог, контент, посадочные страницы и поисковая оптимизация.</p><a href="https://fabrika-start.ru/" target="_blank" rel="noopener">Открыть сайт →</a></div></article>
+        <article class="case"><div class="case-img"><img loading="lazy" src="/nails.webp" alt="Nails54 — проект"></div><div class="case-body"><div class="case-tags"><span class="tag redtag">SEO</span><span class="tag">Семантика</span><span class="tag">ТЗ</span></div><h3>Nails54</h3><p>Семантическое ядро, кластеризация, новые SEO-посадочные и тексты, технические задания разработчикам.</p><a href="http://nails54.ru/" target="_blank" rel="noopener">Открыть сайт →</a></div></article>
+        <article class="case"><div class="case-img"><img loading="lazy" src="/pagly.png" alt="Pagly — собственный SaaS-проект"></div><div class="case-body"><div class="case-tags"><span class="tag redtag">SaaS</span><span class="tag">Next.js</span><span class="tag">Supabase</span></div><h3>Pagly</h3><p>Собственный SaaS-конструктор публичных страниц: аккаунты, страницы, темы, аналитика просмотров и кликов, тарифная модель.</p><a href="https://pagly.ru/" target="_blank" rel="noopener">Открыть Pagly →</a></div></article>
+        <article class="case"><div class="case-img"><img loading="lazy" src="/ai_anton.png" alt="AI-тренер в Telegram"></div><div class="case-body"><div class="case-tags"><span class="tag redtag">Telegram</span><span class="tag">n8n</span><span class="tag">OpenAI</span></div><h3>AI-тренер</h3><p>Telegram-сервис с профилем пользователя, памятью, расписанием, адаптацией программ и автоматическими сводками.</p><a href="https://t.me/bordyshev" target="_blank" rel="noopener">Подробнее в блоге →</a></div></article>
+      </div><div class="more-work"><strong>Также работал с интернет-магазинами, локальными услугами и производством.</strong><p>Start Line, «Пробиотики Сибири», DrevoNSK, «Клинтайм 54», «ПоШву», N‑Tkani, #Посуши и другие. В старых проектах текущий сайт мог быть изменён владельцем после завершения моей работы.</p></div>
+    </div>
+  </section>
+  <section class="section dark"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Что беру в работу</div><h2>Не шесть разрозненных услуг, а четыре точки роста</h2></div><p>Инструмент выбирается после разбора. Иногда нужен новый сайт. Чаще — нет.</p></div><div class="service-grid"><div class="service"><div class="service-no">01 / ТРАФИК</div><h3>SEO и посадочные</h3><p>Структура, семантика, страницы под конкретный спрос, технические доработки и контент.</p><em>Когда сайт есть, но нужные услуги плохо находят.</em></div><div class="service"><div class="service-no">02 / КОНВЕРСИЯ</div><h3>Формы, квизы, расчёт</h3><p>Собираю до звонка те данные, которые реально нужны менеджеру для оценки лида.</p><em>Когда заявка слишком «пустая» или клиент долго объясняет задачу.</em></div><div class="service"><div class="service-no">03 / ПРОЦЕСС</div><h3>CRM и автоматизация</h3><p>Воронки, задачи, статусы, мессенджеры, n8n/Make, уведомления и follow-up.</p><em>Когда обращения приходят из разных каналов и теряются.</em></div><div class="service"><div class="service-no">04 / ОСНОВА</div><h3>Сайт под ключ</h3><p>Лендинг, корпоративный сайт или интернет-магазин — когда текущей базы действительно нет или она мешает продажам.</p><em>Не предлагаю переделку без причины.</em></div></div></div></section>
+  <section class="section" id="process"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Как работаю</div><h2>Сначала маленький понятный шаг</h2></div><p>Для холодного контакта не нужен большой тендер и длинное КП. Достаточно понять, есть ли вообще полезная задача.</p></div><div class="process"><div class="step"><b>01</b><h3>Смотрю сайт и воронку</h3><p>Проверяю путь клиента, формы, структуру услуг, поиск и точки, где потенциально теряются заявки.</p></div><div class="step"><b>02</b><h3>Даю 2–3 идеи</h3><p>Без общего «вам нужен маркетинг». Показываю конкретно, что я бы поменял и зачем.</p></div><div class="step"><b>03</b><h3>Выбираем приоритет</h3><p>Если идея имеет смысл — начинаем с одного измеримого участка, а не переделываем всё сразу.</p></div><div class="step"><b>04</b><h3>Собираю и связываю</h3><p>Реализую сайт/SEO/CRM/автоматизацию и проверяю, что заявка действительно доходит до нужного места.</p></div></div></div></section>
+  <section class="section white" id="about"><div class="wrap about-card"><div class="about-copy"><div class="eyebrow">Кто будет делать</div><h2>Вы общаетесь напрямую со мной</h2><p>Меня зовут Никита Бордышев. Я работаю на стыке сайтов, SEO, автоматизации и AI. Мне интереснее не «сдать красивую страницу», а собрать работающий путь от запроса клиента до обработанной заявки.</p><p>Поэтому в письмах я обычно не предлагаю всем подряд новый сайт. Если у компании уже хорошая база, ищу более узкую точку: отдельная SEO-страница, квалификация лида, CRM, учёт источников или автоматизация повторных касаний.</p><div class="about-list"><div>5+ лет практической работы в digital</div><div>Сайты, SEO, CRM и автоматизация в одном контуре</div><div>Работаю с локальным бизнесом и проектами по России</div><div>Могу подключиться как к новому проекту, так и к существующему сайту</div></div></div><aside class="about-side"><h3>Инструменты, с которыми работаю</h3><p>Подбираю стек под задачу, а не наоборот.</p><div class="stack"><span>Next.js</span><span>WordPress</span><span>1С-Битрикс</span><span>Tilda</span><span>Supabase</span><span>PostgreSQL</span><span>n8n</span><span>Make</span><span>OpenAI</span><span>Telegram</span><span>Битрикс24</span><span>МойСклад</span><span>SEO</span><span>Яндекс</span><span>Google</span><span>Vercel</span></div></aside></div></section>
+  <section class="section"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Коротко</div><h2>Частые вопросы</h2></div><p>То, что обычно важно понять до первого созвона.</p></div><div class="faq"><details><summary>Если сайт уже есть, вы обязательно будете предлагать новый?</summary><p>Нет. Если сайт решает базовую задачу, разумнее доработать конкретную точку: SEO-страницу, форму, квиз, аналитику или CRM-связку. Полная переделка нужна только когда текущая база реально ограничивает результат.</p></details><details><summary>Вы работаете только с Новосибирском?</summary><p>Нет. Локальные проекты удобнее разбирать на знакомом рынке, но техническую работу, SEO и автоматизацию можно вести удалённо по России.</p></details><details><summary>Можно начать только с аудита или небольшой задачи?</summary><p>Да. Это нормальный способ начать. Сначала можно проверить одну гипотезу или один участок воронки и уже по результату решать, есть ли смысл идти дальше.</p></details><details><summary>Сколько стоит работа?</summary><p>Зависит от объёма и текущего состояния проекта. Я предпочитаю сначала определить конкретную задачу, а потом оценить её, вместо продажи фиксированного «пакета», половина которого бизнесу не нужна.</p></details></div></div></section>
+  <section class="final" id="contact"><div class="wrap final-grid"><div><h2>Перешли сюда из моего письма?</h2><p>Тогда я, скорее всего, уже видел ваш сайт. Ответьте на письмо или отправьте ссылку ещё раз — я пришлю 2–3 конкретные идеи, которые вижу по текущей странице и воронке. Без обязательства заказывать проект.</p></div><div class="contact-box"><strong>Как удобнее связаться</strong><div class="contact-links"><a id="emailContact" href="mailto:nikitabordyshev@yandex.ru?subject=Разбор%20сайта"><span>Email</span><b>nikitabordyshev@yandex.ru</b></a><a href="https://t.me/bordyshev_official" target="_blank" rel="noopener"><span>Telegram</span><b>@bordyshev_official</b></a><a href="https://max.ru/u/f9LHodD0cOJBV1T3BpTBwe68VrgL1G6RXTrwWW2RSpDvZWPYYeOesmhELEY" target="_blank" rel="noopener"><span>MAX</span><b>Написать</b></a></div></div></div></section>
+</main>
+<footer><div class="wrap foot"><span>© 2026 Никита Бордышев · bordyshev.pro</span><span>Сайты · SEO · CRM · AI-автоматизация</span><a href="mailto:nikitabordyshev@yandex.ru">Email</a></div></footer>
+<a id="floatingAudit" class="btn primary floating" href="mailto:nikitabordyshev@yandex.ru?subject=3%20идеи%20по%20моему%20сайту">Получить бесплатный разбор</a>
 <script>
-// FADE-IN
-const io = new IntersectionObserver(entries => {
-  entries.forEach((e,i) => {
-    if (e.isIntersecting) setTimeout(()=>e.target.classList.add('vis'), i*65);
-  });
-},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.fi').forEach(el=>io.observe(el));
-
-// BURGER
-const brg=document.getElementById('brg'), mob=document.getElementById('mob-nav');
-brg.addEventListener('click',()=>mob.classList.toggle('open'));
-document.querySelectorAll('.ml').forEach(a=>a.addEventListener('click',()=>mob.classList.remove('open')));
-
-// MATH CANVAS
-const canvas=document.getElementById('math-canvas');
-const hero=document.getElementById('hero');
-const ctx=canvas.getContext('2d');
-const SYM=['∫dx','Σn²','π≈3.14','√x','∞','e^iπ+1=0','∂f/∂x','∇²','lim→0','λ','Δ','∈ℝ','f(x)=ax²','det(A)','i²=−1','sin²+cos²=1','dy/dx','∀x∃y','n!','log₂n','P(A|B)','∏','τ=2π'];
-let parts=[],mouse={x:-999,y:-999},last=0;
-function resize(){canvas.width=hero.offsetWidth;canvas.height=hero.offsetHeight;}
-resize();window.addEventListener('resize',resize);
-class P{
-  constructor(x,y){this.x=x+(Math.random()-.5)*60;this.y=y+(Math.random()-.5)*28;this.t=SYM[Math.floor(Math.random()*SYM.length)];this.s=11+Math.random()*9;this.a=0;this.vx=(Math.random()-.5)*.6;this.vy=-.45-Math.random()*.75;this.l=0;this.ml=100+Math.random()*80;this.ang=0;this.da=(Math.random()-.5)*.014;this.col=Math.random()>.55?'#9B1C1C':'rgba(255,255,255,0.5)';}
-  update(){this.l++;this.x+=this.vx;this.y+=this.vy;this.ang+=this.da;const p=this.l/this.ml;if(p<.15)this.a=p/.15*.7;else if(p>.65)this.a=(1-(p-.65)/.35)*.7;else this.a=.7;}
-  draw(){ctx.save();ctx.globalAlpha=this.a;ctx.font=`${this.s}px 'Oswald',sans-serif`;ctx.fillStyle=this.col;ctx.translate(this.x,this.y);ctx.rotate(this.ang);ctx.fillText(this.t,0,0);ctx.restore();}
-  dead(){return this.l>=this.ml;}
-}
-function glow(x,y){if(x<0)return;const g=ctx.createRadialGradient(x,y,0,x,y,155);g.addColorStop(0,'rgba(155,28,28,0.1)');g.addColorStop(1,'rgba(155,28,28,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,155,0,Math.PI*2);ctx.fill();}
-function loop(ts){ctx.clearRect(0,0,canvas.width,canvas.height);glow(mouse.x,mouse.y);if(ts-last>82&&mouse.x>0){for(let i=0;i<2;i++)parts.push(new P(mouse.x,mouse.y));last=ts;}parts=parts.filter(p=>!p.dead());parts.forEach(p=>{p.update();p.draw();});requestAnimationFrame(loop);}
-requestAnimationFrame(loop);
-hero.addEventListener('mousemove',e=>{const r=hero.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});
-hero.addEventListener('mouseleave',()=>{mouse.x=-999;mouse.y=-999;});
-
-// CHAT WIDGET
-const bubble=document.getElementById('chat-bubble');
-const box=document.getElementById('chat-box');
-const iconMsg=document.getElementById('icon-msg');
-const iconClose=document.getElementById('icon-close');
-const inp=document.getElementById('chat-text');
-const sendBtn=document.getElementById('chat-send-btn');
-let open=false;
-bubble.addEventListener('click',()=>{
-  open=!open;
-  box.classList.toggle('open',open);
-  iconMsg.style.display=open?'none':'block';
-  iconClose.style.display=open?'block':'none';
-  if(open) setTimeout(()=>inp.focus(),300);
-});
-function sendMsg(){
-  const txt=inp.value.trim();
-  const maxUrl='https://max.ru/u/f9LHodD0cOJBV1T3BpTBwe68VrgL1G6RXTrwWW2RSpDvZWPYYeOesmhELEY';
-  if(txt && navigator.clipboard){ navigator.clipboard.writeText(txt).catch(()=>{}); }
-  window.open(maxUrl,'_blank');
-  inp.value='';
-}
-sendBtn.addEventListener('click',sendMsg);
-inp.addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
+  const hamb=document.getElementById('hamb'),mobileNav=document.getElementById('mobileNav');hamb?.addEventListener('click',()=>mobileNav.classList.toggle('open'));mobileNav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobileNav.classList.remove('open')));
+  const params=new URLSearchParams(location.search),rawNiche=(params.get('niche')||'').toLowerCase();const aliases={stom:'dental',clinic:'dental',clinics:'dental',dental:'dental',dentistry:'dental',furniture:'mebel',mebel:'mebel',autoservice:'auto',detailing:'auto',auto:'auto',services:'service',b2b:'service',repair:'service',service:'service',legal:'service',realty:'service',vet:'dental'};const niche=aliases[rawNiche]||rawNiche;
+  const nicheCopy={dental:{title:'Помогаю клиникам <span class="accent">получать</span> и не терять заявки',lead:'Если сайт уже современный, переделывать его не обязательно. Чаще точка роста — SEO по приоритетным услугам, более понятная запись, квалификация обращения и единый учёт заявок из сайта и мессенджеров.',subject:'3 идеи по сайту клиники'},mebel:{title:'Помогаю мебельным компаниям получать <span class="accent">подготовленные</span> заявки',lead:'Клиент может ещё до звонка указать тип мебели, размеры, фото и ориентир бюджета. Дальше заявка попадает в CRM, а нужные категории отдельно усиливаются в поиске.',subject:'3 идеи по сайту мебельной компании'},auto:{title:'Помогаю автосервисам превращать трафик в <span class="accent">запись</span>',lead:'Не обязательно менять весь сайт. Можно отдельно усилить маржинальные услуги, собрать марку авто и симптомы до звонка и связать запись с CRM и мессенджерами.',subject:'3 идеи по сайту автосервиса'},service:{title:'Помогаю сервисному бизнесу получать <span class="accent">более готовые</span> заявки',lead:'Посадочная под конкретную услугу, короткий расчёт или бриф и автоматическая передача лида в CRM часто дают больше пользы, чем полный редизайн сайта.',subject:'3 идеи по сайту'}};
+  if(nicheCopy[niche]){const copy=nicheCopy[niche];document.getElementById('heroTitle').innerHTML=copy.title;document.getElementById('heroLead').textContent=copy.lead;document.title=copy.subject+' — Никита Бордышев';const target=document.querySelector('[data-niche="'+niche+'"]');if(target){target.classList.add('highlight');target.parentNode.prepend(target)}const mailHref='mailto:nikitabordyshev@yandex.ru?subject='+encodeURIComponent(copy.subject);['auditBtn','floatingAudit','emailContact'].forEach(id=>{const el=document.getElementById(id);if(el)el.href=mailHref})}
+  if(location.hash){requestAnimationFrame(()=>document.querySelector(location.hash)?.scrollIntoView({behavior:'smooth'}))}
 </script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=108996416', 'ym');
-
-    ym(108996416, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/108996416" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </body>
 </html>
