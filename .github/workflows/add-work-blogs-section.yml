@@ -1,0 +1,90 @@
+name: Add work blogs section
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/add-work-blogs-section.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add work blogs section and goals
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          if 'id="workBlogs"' in s:
+              raise SystemExit('Work blogs section already exists')
+
+          css = r'''
+    .work-blogs{background:var(--ink);color:#fff}.work-blogs .section-head p{color:rgba(255,255,255,.66)}.blog-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.blog-card{display:flex;flex-direction:column;min-height:260px;padding:28px;border:1px solid rgba(255,255,255,.15);background:#17181a;text-decoration:none;transition:.2s ease;position:relative;overflow:hidden}.blog-card:before{content:"";position:absolute;width:180px;height:180px;border:44px solid rgba(165,31,35,.11);border-radius:50%;right:-85px;top:-90px}.blog-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.34);box-shadow:0 20px 50px rgba(0,0,0,.28)}.blog-platform{display:inline-flex;align-items:center;gap:9px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--red2);position:relative;z-index:1}.blog-platform:before{content:"";width:22px;height:2px;background:var(--red2)}.blog-card h3{font-family:var(--fh);font-size:1.75rem;line-height:1.08;text-transform:uppercase;margin:1.1rem 0 .75rem;position:relative;z-index:1}.blog-card p{font-size:.88rem;color:rgba(255,255,255,.63);margin:0;max-width:520px;position:relative;z-index:1}.blog-link{margin-top:auto;padding-top:24px;color:#fff;font-size:.82rem;font-weight:800;position:relative;z-index:1}.blog-note{margin-top:18px;padding:15px 18px;border-left:3px solid var(--red2);background:#17181a;color:rgba(255,255,255,.68);font-size:.82rem}@media(max-width:680px){.blog-grid{grid-template-columns:1fr}.blog-card{min-height:230px;padding:24px}}
+'''
+          s = s.replace('  </style>', css + '  </style>', 1)
+
+          marker = '<section class="section"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Коротко</div><h2>Частые вопросы</h2></div>'
+          if marker not in s:
+              raise SystemExit('FAQ marker not found')
+
+          section = r'''
+  <section class="section work-blogs" id="workBlogs">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">Работаю публично</div><h2>Показываю не только результат, но и процесс</h2></div>
+        <p>Если хотите понять, как я думаю и работаю до начала проекта — загляните в рабочие блоги. Там показываю сайты, SEO, автоматизацию, AI-проекты и текущие задачи без витрины из одних готовых кейсов.</p>
+      </div>
+      <div class="blog-grid">
+        <a class="blog-card" id="blogVk" href="https://vk.ru/bordyshev_pro" target="_blank" rel="noopener">
+          <div class="blog-platform">VK · рабочий блог</div>
+          <h3>Проекты, SEO и рабочие процессы</h3>
+          <p>Чаще всего здесь показываю текущую работу: что делаю на сайтах, как решаю задачи клиентов, что тестирую и автоматизирую.</p>
+          <div class="blog-link">Смотреть рабочий VK →</div>
+        </a>
+        <a class="blog-card" id="blogTelegram" href="https://t.me/bordyshev" target="_blank" rel="noopener">
+          <div class="blog-platform">Telegram · личный канал</div>
+          <h3>Digital, AI и жизнь предпринимателя</h3>
+          <p>Рабочие заметки, собственные продукты, эксперименты с AI и автоматизацией, идеи и то, что происходит за пределами готовых кейсов.</p>
+          <div class="blog-link">Открыть Telegram →</div>
+        </a>
+      </div>
+      <div class="blog-note"><strong>Хотите понять, как я работаю до начала проекта?</strong> Эти каналы — самый простой способ посмотреть рабочий процесс вживую.</div>
+    </div>
+  </section>
+'''
+          s = s.replace(marker, section + '\n' + marker, 1)
+
+          tracking = r'''
+<script>
+(() => {
+  const blogGoal = (name) => {
+    if (typeof window.ym === 'function') window.ym(108996416, 'reachGoal', name);
+  };
+  document.getElementById('blogVk')?.addEventListener('click', () => blogGoal('blog_vk'));
+  document.getElementById('blogTelegram')?.addEventListener('click', () => blogGoal('blog_telegram'));
+})();
+</script>
+'''
+          s = s.replace('</body>', tracking + '\n</body>', 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Add work blogs trust section and Metrika goals"
+          git push
