@@ -19,11 +19,11 @@
       <b>Шаг 1.</b> Откройте авторизацию VK в новой вкладке и подтвердите доступ.
       <br>
       <a class="btn" target="_blank" rel="noopener" href="https://cnyibpdfryzbgyhhurhs.supabase.co/functions/v1/vk-oauth-chemskoj?action=start">Открыть авторизацию VK</a>
-      <div class="small">После подтверждения VK откроет служебную страницу <b>oauth.vk.com/blank.html</b>. Это нормально. Не закрывайте её сразу.</div>
+      <div class="small">После подтверждения VK откроет служебную страницу <b>oauth.vk.com/blank.html</b> или <b>oauth.vk.ru/blank.html</b>. Это нормально. Не закрывайте её сразу.</div>
     </div>
 
     <div class="step">
-      <b>Шаг 2.</b> Скопируйте <b>полный адрес</b> из адресной строки страницы VK и вставьте сюда. В нём находятся только одноразовые <code>code</code> и <code>state</code>.
+      <b>Шаг 2.</b> Скопируйте <b>полный адрес</b> из адресной строки страницы VK и вставьте сюда. Параметры <code>code</code> и <code>state</code> могут находиться как после <code>?</code>, так и после <code>#</code> — страница распознает оба варианта.
       <label class="label" for="callbackUrl">URL после авторизации VK</label>
       <input id="callbackUrl" type="text" autocomplete="off" spellcheck="false" placeholder="https://oauth.vk.com/blank.html?code=...&state=...">
       <button id="exchange" class="btn" type="button">Проверить и получить токен</button>
@@ -51,19 +51,41 @@
 
     function status(text,kind=''){statusEl.textContent=text;statusEl.className='status'+(kind?' '+kind:'')}
 
+    function readOAuthParams(u){
+      const query=u.searchParams;
+      const hashRaw=(u.hash||'').replace(/^#/,'');
+      const hashParams=new URLSearchParams(hashRaw);
+      return {
+        code: query.get('code') || hashParams.get('code') || '',
+        state: query.get('state') || hashParams.get('state') || '',
+        error: query.get('error') || hashParams.get('error') || '',
+        errorDescription: query.get('error_description') || hashParams.get('error_description') || ''
+      };
+    }
+
     exchangeBtn.addEventListener('click',async()=>{
       tokenWrap.style.display='none';
       const raw=input.value.trim();
       let u;
       try{u=new URL(raw)}catch{return status('Ошибка: вставьте полный URL из адресной строки VK.','err')}
-      if(u.protocol!=='https:'||u.hostname!=='oauth.vk.com'||u.pathname!=='/blank.html')return status('Ошибка: ожидается URL вида https://oauth.vk.com/blank.html?...','err');
-      const code=u.searchParams.get('code')||'';
-      const state=u.searchParams.get('state')||'';
-      if(!code||!state)return status('Ошибка: в URL нет code или state. Повторите авторизацию через кнопку выше.','err');
+
+      const allowedHosts=new Set(['oauth.vk.com','oauth.vk.ru']);
+      if(u.protocol!=='https:'||!allowedHosts.has(u.hostname)||!u.pathname.endsWith('/blank.html')){
+        return status('Ошибка: вставьте полный адрес страницы VK после подтверждения доступа. Поддерживаются oauth.vk.com и oauth.vk.ru.','err');
+      }
+
+      const params=readOAuthParams(u);
+      if(params.error){
+        return status('VK вернул ошибку авторизации: '+(params.errorDescription||params.error),'err');
+      }
+      if(!params.code||!params.state){
+        return status('Ошибка: в URL не найден code или state. Скопируйте адрес целиком, включая часть после ? или #.','err');
+      }
+
       exchangeBtn.disabled=true;
       status('Обмениваю одноразовый code на токен на сервере и проверяю загрузку фото…');
       try{
-        const r=await fetch(EXCHANGE_URL,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({code,state})});
+        const r=await fetch(EXCHANGE_URL,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({code:params.code,state:params.state})});
         const data=await r.json();
         if(!r.ok||data?.ok!==true||!data?.access_token){
           const details=[data?.code,data?.errorDescription,data?.photoErrorMessage,data?.usersErrorMessage].filter(Boolean).join(' — ');
