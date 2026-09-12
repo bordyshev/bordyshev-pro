@@ -33,6 +33,7 @@
     footer{background:#0b0b0c;color:rgba(255,255,255,.55);padding:25px 0}.foot{display:flex;justify-content:space-between;gap:20px;align-items:center;font-size:.75rem}.foot a{color:#fff;text-decoration:none}.floating{position:fixed;right:18px;bottom:18px;z-index:90;box-shadow:0 10px 25px rgba(0,0,0,.25)}
     @media(max-width:980px){.navlinks{display:none}.hamb{display:block}.hero-grid{grid-template-columns:1fr;min-height:auto;padding:65px 0}.hero-card{max-width:540px}.portrait img{height:460px}.principles-grid{grid-template-columns:repeat(2,1fr)}.principle:nth-child(2){border-right:0}.principle:nth-child(-n+2){border-bottom:1px solid var(--line)}.section-head{grid-template-columns:1fr;gap:15px}.funnel,.service-grid,.process{grid-template-columns:repeat(2,1fr)}.case-grid{grid-template-columns:1fr 1fr}.client-logos{grid-template-columns:repeat(4,1fr)}.pricing-grid{grid-template-columns:repeat(2,1fr)}.about-card,.final-grid{grid-template-columns:1fr}}
     @media(max-width:680px){.wrap{width:min(var(--max),calc(100% - 28px))}.section{padding:62px 0}.nav{height:62px}.hero-grid{padding:50px 0 54px;gap:30px}.hero h1{font-size:clamp(2.75rem,14vw,4.25rem)}.hero-lead{font-size:.94rem}.portrait img{height:390px}.stats{grid-template-columns:1fr 1fr 1fr}.stat{padding:13px 10px}.stat b{font-size:1.5rem}.stat span{font-size:.65rem}.principles-grid,.solutions,.funnel,.case-grid,.service-grid,.process,.pricing-grid,.faq{grid-template-columns:1fr}.client-logos{grid-template-columns:repeat(2,1fr)}.principle{border-right:0;border-bottom:1px solid var(--line)!important}.principle:last-child{border-bottom:0!important}.solution{padding:23px}.funnel-card{min-height:auto}.floating{left:14px;right:14px;bottom:12px}.floating.btn{width:calc(100% - 28px)}.foot{flex-direction:column;align-items:flex-start}}
+    .exit-offer{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.76);backdrop-filter:blur(6px)}.exit-offer.open{display:flex}.exit-box{width:min(560px,100%);background:#fff;color:var(--ink);border:1px solid rgba(255,255,255,.16);box-shadow:0 30px 90px rgba(0,0,0,.45);padding:34px;position:relative;text-align:left}.exit-close{position:absolute;right:14px;top:12px;width:38px;height:38px;border:0;background:#f0efeb;color:#333;font-size:1.45rem;line-height:1;cursor:pointer}.exit-kicker{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--red);margin-bottom:10px}.exit-box h2{font-family:var(--fh);font-size:clamp(2rem,6vw,3.4rem);line-height:1;text-transform:uppercase;margin:0 0 14px}.exit-box p{margin:0 0 18px;color:#56585d;font-size:.95rem}.exit-benefits{display:grid;gap:8px;margin:0 0 22px;padding:0;list-style:none}.exit-benefits li{position:relative;padding-left:22px;font-size:.88rem}.exit-benefits li:before{content:"✓";position:absolute;left:0;color:var(--good);font-weight:900}.exit-deadline{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:13px 15px;background:#f7eeee;border-left:3px solid var(--red);margin-bottom:18px}.exit-deadline strong{font-size:.86rem}.exit-count{font-family:var(--fh);font-size:1.35rem;color:var(--red);white-space:nowrap}.exit-cta{width:100%;min-height:58px;font-size:1rem}.exit-skip{display:block;margin:12px auto 0;border:0;background:none;color:#777;text-decoration:underline;cursor:pointer;font-size:.78rem}@media(max-width:680px){.exit-box{padding:28px 20px 22px}.exit-deadline{align-items:flex-start;flex-direction:column;gap:6px}.exit-cta{min-height:56px}}
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Никита Бордышев","url":"https://bordyshev.pro/","image":"https://bordyshev.pro/photo.jpg","jobTitle":"Специалист по сайтам, SEO, CRM и AI-автоматизации","sameAs":["https://t.me/bordyshev","https://www.youtube.com/@BORDYSHEV","https://vk.com/bordyshev_official"],"knowsAbout":["SEO","CRM","web development","business automation","AI automation","chatbots"]}</script>
 </head>
@@ -95,6 +96,18 @@
   <section class="final" id="contact"><div class="wrap final-grid"><div><h2>Перешли сюда из моего письма?</h2><p>Тогда я, скорее всего, уже видел ваш сайт. Ответьте на письмо или отправьте ссылку ещё раз — я пришлю 2–3 конкретные идеи, которые вижу по текущей странице и воронке. Без обязательства заказывать проект.</p></div><div class="contact-box"><strong>Как удобнее связаться</strong><div class="contact-links"><a id="emailContact" href="mailto:nikitabordyshev@yandex.ru?subject=Разбор%20сайта"><span>Email</span><b>nikitabordyshev@yandex.ru</b></a><a href="https://t.me/bordyshev_official" target="_blank" rel="noopener"><span>Telegram</span><b>@bordyshev_official</b></a><a href="https://max.ru/u/f9LHodD0cOJBV1T3BpTBwe68VrgL1G6RXTrwWW2RSpDvZWPYYeOesmhELEY" target="_blank" rel="noopener"><span>MAX</span><b>Написать</b></a></div></div></div></section>
 </main>
 <footer><div class="wrap foot"><span>© 2026 Никита Бордышев · bordyshev.pro</span><span>Сайты · SEO · CRM · AI-автоматизация</span><a href="mailto:nikitabordyshev@yandex.ru">Email</a></div></footer>
+<div class="exit-offer" id="exitOffer" role="dialog" aria-modal="true" aria-labelledby="exitOfferTitle" aria-hidden="true">
+  <div class="exit-box">
+    <button class="exit-close" id="exitOfferClose" aria-label="Закрыть">×</button>
+    <div class="exit-kicker">Перед тем как уйти</div>
+    <h2 id="exitOfferTitle">Получите бесплатную консультацию</h2>
+    <p>Разберу вашу задачу по сайту, SEO, CRM или автоматизации и подскажу, с чего лучше начать без лишних работ.</p>
+    <ul class="exit-benefits"><li>Короткий разбор вашей текущей ситуации</li><li>2–3 конкретные идеи без обязательства заказывать проект</li><li>Скидка на первый этап работ, если напишете сегодня</li></ul>
+    <div class="exit-deadline"><strong>Предложение действует до конца дня</strong><span class="exit-count" id="exitOfferCountdown">до 23:59</span></div>
+    <a class="btn primary exit-cta" href="https://t.me/bordyshev_official?text=Здравствуйте%2C%20хочу%20бесплатную%20консультацию%20и%20скидку%20до%20конца%20дня" target="_blank" rel="noopener">Получить бесплатную консультацию →</a>
+    <button class="exit-skip" id="exitOfferSkip">Продолжить просмотр сайта</button>
+  </div>
+</div>
 <a id="floatingAudit" class="btn primary floating" href="mailto:nikitabordyshev@yandex.ru?subject=3%20идеи%20по%20моему%20сайту">Получить бесплатный разбор</a>
 <script>
   const hamb=document.getElementById('hamb'),mobileNav=document.getElementById('mobileNav');hamb?.addEventListener('click',()=>mobileNav.classList.toggle('open'));mobileNav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobileNav.classList.remove('open')));
@@ -102,6 +115,51 @@
   const nicheCopy={dental:{title:'Помогаю клиникам <span class="accent">получать</span> и не терять заявки',lead:'Если сайт уже современный, переделывать его не обязательно. Чаще точка роста — SEO по приоритетным услугам, более понятная запись, квалификация обращения и единый учёт заявок из сайта и мессенджеров.',subject:'3 идеи по сайту клиники'},mebel:{title:'Помогаю мебельным компаниям получать <span class="accent">подготовленные</span> заявки',lead:'Клиент может ещё до звонка указать тип мебели, размеры, фото и ориентир бюджета. Дальше заявка попадает в CRM, а нужные категории отдельно усиливаются в поиске.',subject:'3 идеи по сайту мебельной компании'},auto:{title:'Помогаю автосервисам превращать трафик в <span class="accent">запись</span>',lead:'Не обязательно менять весь сайт. Можно отдельно усилить маржинальные услуги, собрать марку авто и симптомы до звонка и связать запись с CRM и мессенджерами.',subject:'3 идеи по сайту автосервиса'},service:{title:'Помогаю сервисному бизнесу получать <span class="accent">более готовые</span> заявки',lead:'Посадочная под конкретную услугу, короткий расчёт или бриф и автоматическая передача лида в CRM часто дают больше пользы, чем полный редизайн сайта.',subject:'3 идеи по сайту'}};
   if(nicheCopy[niche]){const copy=nicheCopy[niche];document.getElementById('heroTitle').innerHTML=copy.title;document.getElementById('heroLead').textContent=copy.lead;document.title=copy.subject+' — Никита Бордышев';const target=document.querySelector('[data-niche="'+niche+'"]');if(target){target.classList.add('highlight');target.parentNode.prepend(target)}const mailHref='mailto:nikitabordyshev@yandex.ru?subject='+encodeURIComponent(copy.subject);['auditBtn','floatingAudit','emailContact'].forEach(id=>{const el=document.getElementById(id);if(el)el.href=mailHref})}
   if(location.hash){requestAnimationFrame(()=>document.querySelector(location.hash)?.scrollIntoView({behavior:'smooth'}))}
+</script>
+<script>
+(() => {
+  const modal = document.getElementById('exitOffer');
+  const closeBtn = document.getElementById('exitOfferClose');
+  const skipBtn = document.getElementById('exitOfferSkip');
+  const countdown = document.getElementById('exitOfferCountdown');
+  if (!modal) return;
+  let shown = sessionStorage.getItem('exitOfferShown') === '1';
+  const openOffer = () => {
+    if (shown) return;
+    shown = true;
+    sessionStorage.setItem('exitOfferShown','1');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  };
+  const closeOffer = () => {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  };
+  closeBtn?.addEventListener('click', closeOffer);
+  skipBtn?.addEventListener('click', closeOffer);
+  modal.addEventListener('click', e => { if (e.target === modal) closeOffer(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOffer(); });
+  document.addEventListener('mouseout', e => {
+    if (e.relatedTarget === null && e.clientY <= 12) openOffer();
+  });
+  const updateCountdown = () => {
+    if (!countdown) return;
+    const now = new Date();
+    const end = new Date();
+    end.setHours(23,59,59,999);
+    let diff = Math.max(0, end - now);
+    const h = Math.floor(diff / 3600000);
+    diff -= h * 3600000;
+    const m = Math.floor(diff / 60000);
+    diff -= m * 60000;
+    const sec = Math.floor(diff / 1000);
+    countdown.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+  };
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+})();
 </script>
 </body>
 </html>
