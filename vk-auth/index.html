@@ -3,85 +3,88 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>VK токен для chemskoj</title>
+  <title>VK OAuth для chemskoj</title>
   <style>
     :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#111;background:#f5f7fa}
-    body{margin:0;padding:24px}.card{max-width:680px;margin:0 auto;background:#fff;border-radius:18px;padding:24px;box-shadow:0 8px 30px rgba(0,0,0,.08)}
-    h1{margin:0 0 12px;font-size:24px}p{line-height:1.5;color:#444}button{border:0;border-radius:12px;padding:12px 16px;font-size:16px;cursor:pointer;background:#2688eb;color:#fff;margin-right:8px;margin-top:8px}button.secondary{background:#eef2f6;color:#111}button:disabled{opacity:.5;cursor:default}.token-wrap{margin-top:18px;display:none}input{width:100%;box-sizing:border-box;padding:12px;border:1px solid #d7dde5;border-radius:10px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.status{margin-top:16px;padding:12px;border-radius:10px;background:#f2f5f8;white-space:pre-wrap;word-break:break-word}.ok{background:#e9f8ee}.err{background:#fff0f0}.small{font-size:13px;color:#697386;margin-top:14px}
+    body{margin:0;padding:24px}.card{max-width:720px;margin:0 auto;background:#fff;border-radius:18px;padding:24px;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+    h1{margin:0 0 12px;font-size:24px}p{line-height:1.5;color:#444}.btn{display:inline-block;border:0;border-radius:12px;padding:12px 16px;font-size:16px;cursor:pointer;background:#2688eb;color:#fff;text-decoration:none;margin-right:8px;margin-top:8px}.btn.secondary{background:#eef2f6;color:#111}button:disabled{opacity:.5;cursor:default}.token-wrap{margin-top:18px;display:none}input{width:100%;box-sizing:border-box;padding:12px;border:1px solid #d7dde5;border-radius:10px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.status{margin-top:16px;padding:12px;border-radius:10px;background:#f2f5f8;white-space:pre-wrap;word-break:break-word}.ok{background:#e9f8ee}.err{background:#fff0f0}.small{font-size:13px;color:#697386;margin-top:14px}
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Токен VK для «Подслушано Чемской»</h1>
-    <p>Эта страница запрашивает пользовательский токен через официальный VK Bridge для приложения <b>54572258</b>. Токен не отправляется на сервер и остаётся только в браузере.</p>
-    <button id="getToken" disabled>Инициализация VK…</button>
+    <h1>Серверный токен VK для «Подслушано Чемской»</h1>
+    <p>Авторизация идёт через официальный Authorization Code Flow VK для приложения <b>54572258</b>. Одноразовый code обменивается на access token на сервере Supabase, после чего токен сразу проверяется через <b>users.get</b> и <b>photos.getWallUploadServer</b> для группы <b>28539565</b>.</p>
+
+    <a id="start" class="btn" href="https://cnyibpdfryzbgyhhurhs.supabase.co/functions/v1/vk-oauth-chemskoj?action=start">Получить серверный токен VK</a>
+
     <div id="tokenWrap" class="token-wrap">
       <input id="token" type="password" readonly autocomplete="off" spellcheck="false">
-      <button id="copy" class="secondary">Скопировать</button>
-      <button id="show" class="secondary">Показать</button>
+      <button id="copy" class="btn secondary" type="button">Скопировать</button>
+      <button id="show" class="btn secondary" type="button">Показать</button>
     </div>
-    <div id="status" class="status">Подключаю VK Bridge…</div>
-    <div class="small">Запрашиваемые права: photos, wall, groups. После копирования замените значение Supabase Secret <b>VK_USER_TOKEN_CHEMSKOJ</b>.</div>
+
+    <div id="status" class="status">Нажмите «Получить серверный токен VK» и подтвердите доступ.</div>
+    <div class="small">Запрашиваемые права: photos, wall, groups, offline. После успешной проверки замените значение Supabase Secret <b>VK_USER_TOKEN_CHEMSKOJ</b> на выданный токен.</div>
   </div>
 
-  <script src="https://unpkg.com/@vkontakte/vk-bridge@2.15.9/dist/browser.min.js"></script>
   <script>
-    const APP_ID = 54572258;
-    const SCOPES = 'photos,wall,groups';
+    const EXCHANGE_URL = 'https://cnyibpdfryzbgyhhurhs.supabase.co/functions/v1/vk-oauth-chemskoj';
+    const params = new URLSearchParams(location.search);
     const statusEl = document.getElementById('status');
     const tokenWrap = document.getElementById('tokenWrap');
     const tokenInput = document.getElementById('token');
-    const getBtn = document.getElementById('getToken');
+    const startBtn = document.getElementById('start');
     const copyBtn = document.getElementById('copy');
     const showBtn = document.getElementById('show');
-    let bridgeReady = false;
 
     function setStatus(text, kind='') {
       statusEl.textContent = text;
       statusEl.className = 'status' + (kind ? ' ' + kind : '');
     }
 
-    async function initBridge() {
-      if (!window.vkBridge) throw new Error('VK Bridge не загрузился');
-      await window.vkBridge.send('VKWebAppInit');
-      bridgeReady = true;
-      getBtn.disabled = false;
-      getBtn.textContent = 'Получить токен VK';
-      setStatus('VK Bridge подключён. Нажмите «Получить токен VK».', 'ok');
-    }
-
-    window.addEventListener('load', async () => {
+    async function exchangeCode(code, state) {
+      startBtn.style.pointerEvents = 'none';
+      startBtn.style.opacity = '.5';
+      setStatus('Обмениваю одноразовый code на серверный токен и проверяю доступ к загрузке фото…');
       try {
-        await initBridge();
-      } catch (error) {
-        const msg = error && error.message ? error.message : String(error);
-        setStatus('Ошибка инициализации VK: ' + msg, 'err');
-        getBtn.disabled = true;
-        getBtn.textContent = 'VK Bridge недоступен';
-      }
-    });
-
-    getBtn.addEventListener('click', async () => {
-      if (!bridgeReady) return;
-      getBtn.disabled = true;
-      tokenWrap.style.display = 'none';
-      setStatus('Запрашиваю доступ у VK…');
-      try {
-        const data = await window.vkBridge.send('VKWebAppGetAuthToken', {
-          app_id: APP_ID,
-          scope: SCOPES
+        const response = await fetch(EXCHANGE_URL, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ code, state })
         });
-        if (!data || !data.access_token) throw new Error('VK не вернул access_token');
+        const data = await response.json();
+        history.replaceState({}, '', location.pathname);
+        if (!response.ok || !data || data.ok !== true || !data.access_token) {
+          const details = [
+            data?.code,
+            data?.errorDescription,
+            data?.photoErrorMessage,
+            data?.usersErrorMessage
+          ].filter(Boolean).join(' — ');
+          throw new Error(details || 'VK не выдал рабочий серверный токен');
+        }
         tokenInput.value = data.access_token;
         tokenWrap.style.display = 'block';
-        setStatus('Токен получен. Скопируйте его и замените VK_USER_TOKEN_CHEMSKOJ в Supabase Secrets. Выданные права: ' + (data.scope || SCOPES), 'ok');
+        const expiry = data.expires_in === 0 ? 'без срока действия' : (data.expires_in ? `срок: ${data.expires_in} сек.` : 'срок не указан');
+        setStatus(`Готово. Токен проверен с сервера: users.get — OK, загрузка фото в группу 28539565 — OK, ${expiry}. Скопируйте его и замените VK_USER_TOKEN_CHEMSKOJ в Supabase.`, 'ok');
       } catch (error) {
-        const msg = error && error.message ? error.message : JSON.stringify(error);
-        setStatus('Ошибка VK: ' + msg, 'err');
+        const msg = error && error.message ? error.message : String(error);
+        setStatus('Ошибка: ' + msg, 'err');
       } finally {
-        getBtn.disabled = false;
+        startBtn.style.pointerEvents = '';
+        startBtn.style.opacity = '';
       }
-    });
+    }
+
+    const oauthError = params.get('error');
+    if (oauthError) {
+      setStatus('VK вернул ошибку авторизации: ' + (params.get('error_description') || oauthError), 'err');
+      history.replaceState({}, '', location.pathname);
+    } else {
+      const code = params.get('code');
+      const state = params.get('state');
+      if (code && state) exchangeCode(code, state);
+    }
 
     copyBtn.addEventListener('click', async () => {
       if (!tokenInput.value) return;
