@@ -16,70 +16,27 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Add work blogs section and goals
+      - name: Update index
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
-
+          import base64
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
-
           if 'id="workBlogs"' in s:
               raise SystemExit('Work blogs section already exists')
-
-          css = r'''
-    .work-blogs{background:var(--ink);color:#fff}.work-blogs .section-head p{color:rgba(255,255,255,.66)}.blog-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.blog-card{display:flex;flex-direction:column;min-height:260px;padding:28px;border:1px solid rgba(255,255,255,.15);background:#17181a;text-decoration:none;transition:.2s ease;position:relative;overflow:hidden}.blog-card:before{content:"";position:absolute;width:180px;height:180px;border:44px solid rgba(165,31,35,.11);border-radius:50%;right:-85px;top:-90px}.blog-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.34);box-shadow:0 20px 50px rgba(0,0,0,.28)}.blog-platform{display:inline-flex;align-items:center;gap:9px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--red2);position:relative;z-index:1}.blog-platform:before{content:"";width:22px;height:2px;background:var(--red2)}.blog-card h3{font-family:var(--fh);font-size:1.75rem;line-height:1.08;text-transform:uppercase;margin:1.1rem 0 .75rem;position:relative;z-index:1}.blog-card p{font-size:.88rem;color:rgba(255,255,255,.63);margin:0;max-width:520px;position:relative;z-index:1}.blog-link{margin-top:auto;padding-top:24px;color:#fff;font-size:.82rem;font-weight:800;position:relative;z-index:1}.blog-note{margin-top:18px;padding:15px 18px;border-left:3px solid var(--red2);background:#17181a;color:rgba(255,255,255,.68);font-size:.82rem}@media(max-width:680px){.blog-grid{grid-template-columns:1fr}.blog-card{min-height:230px;padding:24px}}
-'''
-          s = s.replace('  </style>', css + '  </style>', 1)
-
+          css = base64.b64decode('LndvcmstYmxvZ3N7YmFja2dyb3VuZDp2YXIoLS1pbmspO2NvbG9yOiNmZmZ9LndvcmstYmxvZ3MgLnNlY3Rpb24taGVhZCBwe2NvbG9yOnJnYmEoMjU1LDI1NSwyNTUsLjY2KX0uYmxvZy1ncmlke2Rpc3BsYXk6Z3JpZDtncmlkLXRlbXBsYXRlLWNvbHVtbnM6MWZyIDFmcjtnYXA6MTZweH0uYmxvZy1jYXJke2Rpc3BsYXk6ZmxleDtmbGV4LWRpcmVjdGlvbjpjb2x1bW47bWluLWhlaWdodDoyNjBweDtwYWRkaW5nOjI4cHg7Ym9yZGVyOjFweCBzb2xpZCByZ2JhKDI1NSwyNTUsMjU1LC4xNSk7YmFja2dyb3VuZDojMTcxODFhO3RleHQtZGVjb3JhdGlvbjpub25lO3RyYW5zaXRpb246LjJzIGVhc2U7cG9zaXRpb246cmVsYXRpdmU7b3ZlcmZsb3c6aGlkZGVufS5ibG9nLWNhcmQ6YmVmb3Jle2NvbnRlbnQ6IiI7cG9zaXRpb246YWJzb2x1dGU7d2lkdGg6MTgwcHg7aGVpZ2h0OjE4MHB4O2JvcmRlcjo0NHB4IHNvbGlkIHJnYmEoMTY1LDMxLDM1LC4xMSk7Ym9yZGVyLXJhZGl1czo1MCU7cmlnaHQ6LTg1cHg7dG9wOi05MHB4fS5ibG9nLWNhcmQ6aG92ZXJ7dHJhbnNmb3JtOnRyYW5zbGF0ZVkoLTNweCk7Ym9yZGVyLWNvbG9yOnJnYmEoMjU1LDI1NSwyNTUsLjM0KTtib3gtc2hhZG93OjAgMjBweCA1MHB4IHJnYmEoMCwwLDAsLjI4KX0uYmxvZy1wbGF0Zm9ybXtkaXNwbGF5OmlubGluZS1mbGV4O2FsaWduLWl0ZW1zOmNlbnRlcjtnYXA6OXB4O2ZvbnQtc2l6ZTouNzJyZW07Zm9udC13ZWlnaHQ6ODAwO3RleHQtdHJhbnNmb3JtOnVwcGVyY2FzZTtsZXR0ZXItc3BhY2luZzouMTJlbTtjb2xvcjp2YXIoLS1yZWQyKTtwb3NpdGlvbjpyZWxhdGl2ZTt6LWluZGV4OjF9LmJsb2ctcGxhdGZvcm06YmVmb3Jle2NvbnRlbnQ6IiI7d2lkdGg6MjJweDtoZWlnaHQ6MnB4O2JhY2tncm91bmQ6dmFyKC0tcmVkMil9LmJsb2ctY2FyZCBoM3tmb250LWZhbWlseTp2YXIoLS1maCk7Zm9udC1zaXplOjEuNzVyZW07bGluZS1oZWlnaHQ6MS4wODt0ZXh0LXRyYW5zZm9ybTp1cHBlcmNhc2U7bWFyZ2luOjEuMXJlbSAwIC43NXJlbTtwb3NpdGlvbjpyZWxhdGl2ZTt6LWluZGV4OjF9LmJsb2ctY2FyZCBwe2ZvbnQtc2l6ZTouODhyZW07Y29sb3I6cmdiYSgyNTUsMjU1LDI1NSwuNjMpO21hcmdpbjowO21heC13aWR0aDo1MjBweDtwb3NpdGlvbjpyZWxhdGl2ZTt6LWluZGV4OjF9LmJsb2ctbGlua3ttYXJnaW4tdG9wOmF1dG87cGFkZGluZy10b3A6MjRweDtjb2xvcjojZmZmO2ZvbnQtc2l6ZTouODJyZW07Zm9udC13ZWlnaHQ6ODAwO3Bvc2l0aW9uOnJlbGF0aXZlO3otaW5kZXg6MX0uYmxvZy1ub3Rle21hcmdpbi10b3A6MThweDtwYWRkaW5nOjE1cHggMThweDtib3JkZXItbGVmdDozcHggc29saWQgdmFyKC0tcmVkMik7YmFja2dyb3VuZDojMTcxODFhO2NvbG9yOnJnYmEoMjU1LDI1NSwyNTUsLjY4KTtmb250LXNpemU6LjgycmVtfUBtZWRpYShtYXgtd2lkdGg6NjgwcHgpey5ibG9nLWdyaWR7Z3JpZC10ZW1wbGF0ZS1jb2x1bW5zOjFmcn0uYmxvZy1jYXJke21pbi1oZWlnaHQ6MjMwcHg7cGFkZGluZzoyNHB4fX0K').decode('utf-8')
+          section = base64.b64decode('ICA8c2VjdGlvbiBjbGFzcz0ic2VjdGlvbiB3b3JrLWJsb2dzIiBpZD0id29ya0Jsb2dzIj4KICAgIDxkaXYgY2xhc3M9IndyYXAiPgogICAgICA8ZGl2IGNsYXNzPSJzZWN0aW9uLWhlYWQiPgogICAgICAgIDxkaXY+PGRpdiBjbGFzcz0iZXllYnJvdyI+0KDQsNCx0L7RgtCw0Y4g0L/Rg9Cx0LvQuNGH0L3QvjwvZGl2PjxoMj7Qn9C+0LrQsNC30YvQstCw0Y4g0L3QtSDRgtC+0LvRjNC60L4g0YDQtdC30YPQu9GM0YLQsNGCLCDQvdC+INC4INC/0YDQvtGG0LXRgdGBPC9oMj48L2Rpdj4KICAgICAgICA8cD7QldGB0LvQuCDRhdC+0YLQuNGC0LUg0L/QvtC90Y/RgtGMLCDQutCw0Log0Y8g0LTRg9C80LDRjiDQuCDRgNCw0LHQvtGC0LDRjiDQtNC+INC90LDRh9Cw0LvQsCDQv9GA0L7QtdC60YLQsCDigJQg0LfQsNCz0LvRj9C90LjRgtC1INCyINGA0LDQsdC+0YfQuNC1INCx0LvQvtCz0LguINCi0LDQvCDQv9C+0LrQsNC30YvQstCw0Y4g0YHQsNC50YLRiywgU0VPLCDQsNCy0YLQvtC80LDRgtC40LfQsNGG0LjRjiwgQUkt0L/RgNC+0LXQutGC0Ysg0Lgg0YLQtdC60YPRidC40LUg0LfQsNC00LDRh9C4INCx0LXQtyDQstC40YLRgNC40L3RiyDQuNC3INC+0LTQvdC40YUg0LPQvtGC0L7QstGL0YUg0LrQtdC50YHQvtCyLjwvcD4KICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9ImJsb2ctZ3JpZCI+CiAgICAgICAgPGEgY2xhc3M9ImJsb2ctY2FyZCIgaWQ9ImJsb2dWayIgaHJlZj0iaHR0cHM6Ly92ay5ydS9ib3JkeXNoZXZfcHJvIiB0YXJnZXQ9Il9ibGFuayIgcmVsPSJub29wZW5lciI+CiAgICAgICAgICA8ZGl2IGNsYXNzPSJibG9nLXBsYXRmb3JtIj5WSyDCtyDRgNCw0LHQvtGH0LjQuSDQsdC70L7QszwvZGl2PgogICAgICAgICAgPGgzPtCf0YDQvtC10LrRgtGLLCBTRU8g0Lgg0YDQsNCx0L7Rh9C40LUg0L/RgNC+0YbQtdGB0YHRizwvaDM+CiAgICAgICAgICA8cD7Qp9Cw0YnQtSDQstGB0LXQs9C+INC30LTQtdGB0Ywg0L/QvtC60LDQt9GL0LLQsNGOINGC0LXQutGD0YnRg9GOINGA0LDQsdC+0YLRgzog0YfRgtC+INC00LXQu9Cw0Y4g0L3QsCDRgdCw0LnRgtCw0YUsINC60LDQuiDRgNC10YjQsNGOINC30LDQtNCw0YfQuCDQutC70LjQtdC90YLQvtCyLCDRh9GC0L4g0YLQtdGB0YLQuNGA0YPRjiDQuCDQsNCy0YLQvtC80LDRgtC40LfQuNGA0YPRji48L3A+CiAgICAgICAgICA8ZGl2IGNsYXNzPSJibG9nLWxpbmsiPtCh0LzQvtGC0YDQtdGC0Ywg0YDQsNCx0L7Rh9C40LkgVksg4oaSPC9kaXY+CiAgICAgICAgPC9hPgogICAgICAgIDxhIGNsYXNzPSJibG9nLWNhcmQiIGlkPSJibG9nVGVsZWdyYW0iIGhyZWY9Imh0dHBzOi8vdC5tZS9ib3JkeXNoZXYiIHRhcmdldD0iX2JsYW5rIiByZWw9Im5vb3BlbmVyIj4KICAgICAgICAgIDxkaXYgY2xhc3M9ImJsb2ctcGxhdGZvcm0iPlRlbGVncmFtIMK3INC70LjRh9C90YvQuSDQutCw0L3QsNC7PC9kaXY+CiAgICAgICAgICA8aDM+RGlnaXRhbCwgQUkg0Lgg0LbQuNC30L3RjCDQv9GA0LXQtNC/0YDQuNC90LjQvNCw0YLQtdC70Y88L2gzPgogICAgICAgICAgPHA+0KDQsNCx0L7Rh9C40LUg0LfQsNC80LXRgtC60LgsINGB0L7QsdGB0YLQstC10L3QvdGL0LUg0L/RgNC+0LTRg9C60YLRiywg0Y3QutGB0L/QtdGA0LjQvNC10L3RgtGLINGBIEFJINC4INCw0LLRgtC+0LzQsNGC0LjQt9Cw0YbQuNC10LksINC40LTQtdC4INC4INGC0L4sINGH0YLQviDQv9GA0L7QuNGB0YXQvtC00LjRgiDQt9CwINC/0YDQtdC00LXQu9Cw0LzQuCDQs9C+0YLQvtCy0YvRhSDQutC10LnRgdC+0LIuPC9wPgogICAgICAgICAgPGRpdiBjbGFzcz0iYmxvZy1saW5rIj7QntGC0LrRgNGL0YLRjCBUZWxlZ3JhbSDihpI8L2Rpdj4KICAgICAgICA8L2E+CiAgICAgIDwvZGl2PgogICAgICA8ZGl2IGNsYXNzPSJibG9nLW5vdGUiPjxzdHJvbmc+0KXQvtGC0LjRgtC1INC/0L7QvdGP0YLRjCwg0LrQsNC6INGPINGA0LDQsdC+0YLQsNGOINC00L4g0L3QsNGH0LDQu9CwINC/0YDQvtC10LrRgtCwPzwvc3Ryb25nPiDQrdGC0Lgg0LrQsNC90LDQu9GLIOKAlCDRgdCw0LzRi9C5INC/0YDQvtGB0YLQvtC5INGB0L/QvtGB0L7QsSDQv9C+0YHQvNC+0YLRgNC10YLRjCDRgNCw0LHQvtGH0LjQuSDQv9GA0L7RhtC10YHRgSDQstC20LjQstGD0Y4uPC9kaXY+CiAgICA8L2Rpdj4KICA8L3NlY3Rpb24+Cg==').decode('utf-8')
+          tracking = base64.b64decode('PHNjcmlwdD4KKCgpID0+IHsKICBjb25zdCBibG9nR29hbCA9IChuYW1lKSA9PiB7CiAgICBpZiAodHlwZW9mIHdpbmRvdy55bSA9PT0gJ2Z1bmN0aW9uJykgd2luZG93LnltKDEwODk5NjQxNiwgJ3JlYWNoR29hbCcsIG5hbWUpOwogIH07CiAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2Jsb2dWaycpPy5hZGRFdmVudExpc3RlbmVyKCdjbGljaycsICgpID0+IGJsb2dHb2FsKCdibG9nX3ZrJykpOwogIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdibG9nVGVsZWdyYW0nKT8uYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoKSA9PiBibG9nR29hbCgnYmxvZ190ZWxlZ3JhbScpKTsKfSkoKTsKPC9zY3JpcHQ+Cg==').decode('utf-8')
           marker = '<section class="section"><div class="wrap"><div class="section-head"><div><div class="eyebrow">Коротко</div><h2>Частые вопросы</h2></div>'
           if marker not in s:
               raise SystemExit('FAQ marker not found')
-
-          section = r'''
-  <section class="section work-blogs" id="workBlogs">
-    <div class="wrap">
-      <div class="section-head">
-        <div><div class="eyebrow">Работаю публично</div><h2>Показываю не только результат, но и процесс</h2></div>
-        <p>Если хотите понять, как я думаю и работаю до начала проекта — загляните в рабочие блоги. Там показываю сайты, SEO, автоматизацию, AI-проекты и текущие задачи без витрины из одних готовых кейсов.</p>
-      </div>
-      <div class="blog-grid">
-        <a class="blog-card" id="blogVk" href="https://vk.ru/bordyshev_pro" target="_blank" rel="noopener">
-          <div class="blog-platform">VK · рабочий блог</div>
-          <h3>Проекты, SEO и рабочие процессы</h3>
-          <p>Чаще всего здесь показываю текущую работу: что делаю на сайтах, как решаю задачи клиентов, что тестирую и автоматизирую.</p>
-          <div class="blog-link">Смотреть рабочий VK →</div>
-        </a>
-        <a class="blog-card" id="blogTelegram" href="https://t.me/bordyshev" target="_blank" rel="noopener">
-          <div class="blog-platform">Telegram · личный канал</div>
-          <h3>Digital, AI и жизнь предпринимателя</h3>
-          <p>Рабочие заметки, собственные продукты, эксперименты с AI и автоматизацией, идеи и то, что происходит за пределами готовых кейсов.</p>
-          <div class="blog-link">Открыть Telegram →</div>
-        </a>
-      </div>
-      <div class="blog-note"><strong>Хотите понять, как я работаю до начала проекта?</strong> Эти каналы — самый простой способ посмотреть рабочий процесс вживую.</div>
-    </div>
-  </section>
-'''
+          s = s.replace('  </style>', '    ' + css + '  </style>', 1)
           s = s.replace(marker, section + '\n' + marker, 1)
-
-          tracking = r'''
-<script>
-(() => {
-  const blogGoal = (name) => {
-    if (typeof window.ym === 'function') window.ym(108996416, 'reachGoal', name);
-  };
-  document.getElementById('blogVk')?.addEventListener('click', () => blogGoal('blog_vk'));
-  document.getElementById('blogTelegram')?.addEventListener('click', () => blogGoal('blog_telegram'));
-})();
-</script>
-'''
           s = s.replace('</body>', tracking + '\n</body>', 1)
           p.write_text(s, encoding='utf-8')
           PY
-
       - name: Commit changes
         shell: bash
         run: |
